@@ -337,7 +337,7 @@ tr:hover td{background:#fafdff}
 <div class="modal-content">
 <div class="modal-header"><h2>Import RADET Excel/CSV</h2><button class="modal-close" id="closeImportBtn" type="button">✕</button></div>
 <div class="import-help">
-<strong>RADET column names (case-insensitive):</strong><br>
+<strong>RADET columns detected automatically (case-insensitive, punctuation-stripped):</strong><br>
 <code>Hospital Number</code> · <code>Last Pickup Date (yyyy-mm-dd)</code> · <code>Months of ARV Refill</code> · <code>Case Manager</code> · <code>Sex</code> · <code>Current Weight (kg)</code> · <code>Date of Birth (yyyy-mm-dd)</code> · <code>Age</code><br>
 <em>The <strong>Case Manager</strong> column is matched against your logged-in <strong>name, email, or phone</strong>. Only rows that match YOUR account are imported.</em>
 </div>
@@ -568,15 +568,13 @@ const API = {
     function monthLabel(d) { return d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); }
     function monthKey(d) { return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0'); }
 
-    // Parse flexible date strings (yyyy-mm-dd, dd/mm/yyyy, mm/dd/yyyy, etc.)
+    // Parse flexible date strings
     function parseFlexibleDate(str) {
         if (!str) return null;
         const s = String(str).trim();
         if (!s) return null;
-        // Try ISO yyyy-mm-dd
         let m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
         if (m) return new Date(+m[1], +m[2]-1, +m[3]);
-        // Try dd/mm/yyyy or mm/dd/yyyy
         m = s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})/);
         if (m) {
             let d = +m[1], mo = +m[2], y = +m[3];
@@ -591,7 +589,10 @@ const API = {
         if (!d) return null;
         if (typeof d === 'string') d = parseFlexibleDate(d);
         if (!d || isNaN(d.getTime())) return null;
-        return d.toISOString().slice(0,10);
+        const y = d.getFullYear();
+        const m = String(d.getMonth()+1).padStart(2,'0');
+        const day = String(d.getDate()).padStart(2,'0');
+        return y + '-' + m + '-' + day;
     }
 
     function computeNextPickup(client) {
@@ -809,12 +810,13 @@ const API = {
     window.markRefilled = async function(clientId) {
         const client = clients.find(c => String(c.id) === String(clientId));
         if (!client) return;
-        const today = new Date().toISOString().slice(0,10);
-        if (!confirm(`Mark "${client.fullName || client.hospitalNo}" as refilled today (${formatDate(today)})?`)) return;
-        const updated = { ...client, lastPickupDate: today, vlscLastCollection: today };
+        const today = new Date();
+        const isoToday = toISODate(today);
+        if (!confirm(`Mark "${client.fullName || client.hospitalNo}" as refilled today (${formatDate(isoToday)})?`)) return;
+        const updated = { ...client, lastPickupDate: isoToday, vlscLastCollection: isoToday };
         const monthsToAdd = (client.refillMonths === 3) ? 3 : 12;
-        const nextVlsc = addMonths(new Date(today), monthsToAdd);
-        if (nextVlsc) updated.vlscNextCollection = nextVlsc.toISOString().slice(0,10);
+        const nextVlsc = addMonths(today, monthsToAdd);
+        if (nextVlsc) updated.vlscNextCollection = toISODate(nextVlsc);
         try {
             await API.updateClient(updated);
             const idx = clients.findIndex(c => String(c.id) === String(clientId));
@@ -880,7 +882,7 @@ const API = {
         if (!lastVlsc) { vlscNextInput.value = ''; return; }
         const monthsToAdd = (refillMonthsSelect.value === '3') ? 3 : 12;
         const next = addMonths(new Date(lastVlsc), monthsToAdd);
-        if (next) vlscNextInput.value = next.toISOString().slice(0,10);
+        if (next) vlscNextInput.value = toISODate(next);
     }
     vlscLastInput.addEventListener('change', updateVlscNext);
     refillMonthsSelect.addEventListener('change', updateVlscNext);
@@ -992,7 +994,7 @@ const API = {
         if (vlscLast && !vlscNext) {
             const monthsToAdd = (refillMonths === 3) ? 3 : 12;
             const next = addMonths(new Date(vlscLast), monthsToAdd);
-            if (next) vlscNext = next.toISOString().slice(0,10);
+            if (next) vlscNext = toISODate(next);
         }
         const payload = {
             fullName: $('fullName').value.trim(),
@@ -1037,14 +1039,14 @@ const API = {
         const rows = mine.map(c => {
             const np = computeNextPickup(c);
             const s = getStatusInfo(np);
-            const vNext = c.vlscNextCollection || (computeVlscNext(c) ? computeVlscNext(c).toISOString().slice(0,10) : '');
+            const vNext = c.vlscNextCollection || (computeVlscNext(c) ? toISODate(computeVlscNext(c)) : '');
             return [
                 currentUser.fullName || '', currentUser.email || '', currentUser.phone || '',
                 c.hospitalNo || '', c.fullName || '', c.sex || '', c.dateOfBirth || '',
                 c.age || '', c.weight || '', c.height || '', c.location || '', c.address || '', c.phone || '',
                 c.lastPickupDate || '', c.refillMonths || '',
                 c.vlscLastCollection || '', vNext,
-                np ? np.toISOString().slice(0,10) : '', s.label
+                np ? toISODate(np) : '', s.label
             ];
         });
         const csv = [headers, ...rows].map(r => r.map(cell => {
@@ -1054,13 +1056,26 @@ const API = {
         const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url; a.download = `plhiv_clients_${new Date().toISOString().slice(0,10)}.csv`;
+        a.href = url; a.download = `plhiv_clients_${toISODate(new Date())}.csv`;
         document.body.appendChild(a); a.click(); document.body.removeChild(a);
         URL.revokeObjectURL(url);
         showToast('Exported ' + mine.length + ' clients', 'success');
     });
 
     /* ---------- IMPORT from RADET Excel/CSV ---------- */
+    let sheetJSPromise = null;
+    function loadSheetJS() {
+        if (sheetJSPromise) return sheetJSPromise;
+        sheetJSPromise = new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+            s.onload = () => resolve(window.XLSX);
+            s.onerror = () => reject(new Error('Failed to load SheetJS'));
+            document.head.appendChild(s);
+        });
+        return sheetJSPromise;
+    }
+
     function parseCSV(text) {
         const rows = [];
         let cur = [], cell = '', inQuotes = false;
@@ -1082,6 +1097,25 @@ const API = {
         return rows.filter(r => r.some(c => String(c).trim() !== ''));
     }
 
+    function normalizeHeader(h) {
+        return String(h || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+    function buildHeaderIndex(headers) {
+        const map = {};
+        headers.forEach((h, i) => {
+            const key = normalizeHeader(h);
+            if (key && !(key in map)) map[key] = i;
+        });
+        return map;
+    }
+    function findColumn(headerIndex, aliases) {
+        for (const alias of aliases) {
+            const key = normalizeHeader(alias);
+            if (key in headerIndex) return headerIndex[key];
+        }
+        return -1;
+    }
+
     $('btnImport').addEventListener('click', () => {
         $('importResult').innerHTML = '';
         $('importFile').value = '';
@@ -1096,43 +1130,83 @@ const API = {
         if (!file) return;
         const resultEl = $('importResult');
         resultEl.innerHTML = `<div class="row">Reading ${escapeHtml(file.name)}...</div>`;
+
         try {
-            const text = await file.text();
-            const rows = parseCSV(text);
-            if (rows.length < 2) { resultEl.innerHTML = `<div class="row err">File is empty or only has a header row.</div>`; return; }
+            let rows = [];
+            const fname = file.name.toLowerCase();
+
+            if (fname.endsWith('.xlsx') || fname.endsWith('.xls')) {
+                resultEl.innerHTML = `<div class="row">Loading Excel parser…</div>`;
+                const XLSX = await loadSheetJS();
+                const buf = await file.arrayBuffer();
+                const wb = XLSX.read(buf, { type: 'array', cellDates: true });
+                const ws = wb.Sheets[wb.SheetNames[0]];
+                if (!ws) throw new Error('No sheet found in Excel file');
+                const json = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, defval: '' });
+                rows = json.filter(r => r.some(c => String(c).trim() !== ''));
+            } else {
+                const text = await file.text();
+                rows = parseCSV(text);
+            }
+
+            if (rows.length < 2) {
+                resultEl.innerHTML = `<div class="row err">File is empty or only has a header row.</div>`;
+                return;
+            }
+
             const headers = rows[0].map(h => String(h).trim());
+            const headerIndex = buildHeaderIndex(headers);
 
-            // Helper: get a column case-insensitively, supporting multiple aliases
-            const get = (row, aliases) => {
-                for (const alias of aliases) {
-                    const idx = headers.findIndex(h => h.toLowerCase() === alias.toLowerCase());
-                    if (idx !== -1) {
-                        const v = String(row[idx] == null ? '' : row[idx]).trim();
-                        if (v) return v;
-                    }
-                }
-                return '';
-            };
-
-            // RADET column aliases
             const ALIAS = {
-                hospitalNo: ['Hospital Number', 'Hospital No', 'HospitalNo', 'HospNo', 'hosp_no'],
-                lastPickup: ['Last Pickup Date (yyyy-mm-dd)', 'Last Pickup Date', 'LastPickupDate', 'Last Pickup'],
-                refillMonths: ['Months of ARV Refill', 'Months of ARV Refill ', 'Refill Months', 'Months', 'Refill'],
-                caseManager: ['Case Manager', 'CaseManager', 'Case_Manager', 'Manager'],
-                sex: ['Sex', 'Gender'],
-                weight: ['Current Weight (kg)', 'Current Weight', 'Weight', 'Weight (kg)'],
-                dob: ['Date of Birth (yyyy-mm-dd)', 'Date of Birth', 'DOB', 'DateOfBirth'],
-                age: ['Age']
+                hospitalNo:   ['Hospital Number', 'Hospital No', 'HospitalNo', 'HospNo', 'Hospital_No', 'Hosp_No', 'Hosp No', 'Hosp. No', 'Hosp. No.', 'Hospital #', 'Hosp #', 'Patient ID', 'Clinic No', 'ART No', 'HospitalNumber'],
+                lastPickup:   ['Last Pickup Date (yyyy-mm-dd)', 'Last Pickup Date', 'LastPickupDate', 'Last Pickup', 'LastPickup', 'Last Pick-Up', 'Last Pick Up', 'Last Refill Date', 'Last Collection Date', 'LastVisit', 'Last Visit'],
+                refillMonths: ['Months of ARV Refill', 'Refill Months', 'Months', 'Refill', 'ARV Refill Months', 'ARV Refill', 'Refill Duration', 'Multi-Month Refill', 'MMD', 'MonthsOfRefill', 'Months of ARV Refill '],
+                caseManager:  ['Case Manager', 'CaseManager', 'Case_Manager', 'Manager', 'Case Manager Name', 'CM', 'CM Name', 'Case Worker', 'CaseWorker'],
+                sex:          ['Sex', 'Gender', 'Sex (M/F)'],
+                weight:       ['Current Weight (kg)', 'Current Weight', 'Weight', 'Weight (kg)', 'CurrentWeight', 'WeightKg', 'WT'],
+                dob:          ['Date of Birth (yyyy-mm-dd)', 'Date of Birth', 'DOB', 'DateOfBirth', 'BirthDate', 'Birth Date'],
+                age:          ['Age', 'Age (yrs)', 'Age Years', 'AgeYears']
             };
 
-            // Build a normalized name set for fuzzy case-manager matching
-            const myFull = (currentUser.fullName || '').toLowerCase().trim();
+            const colHospitalNo = findColumn(headerIndex, ALIAS.hospitalNo);
+            if (colHospitalNo === -1) {
+                resultEl.innerHTML = `
+                    <div class="row err">Could not find a "Hospital Number" column.</div>
+                    <div class="row" style="font-size:12.5px;color:#5b6e8c;">
+                        Detected headers: <strong>${escapeHtml(headers.join(' · '))}</strong>
+                    </div>
+                    <div class="row" style="font-size:12px;color:#7a8ba8;">
+                        Rename the column in your file to <code>Hospital Number</code> and try again.
+                    </div>
+                `;
+                return;
+            }
+            const colLastPickup   = findColumn(headerIndex, ALIAS.lastPickup);
+            const colRefillMonths = findColumn(headerIndex, ALIAS.refillMonths);
+            const colCaseManager  = findColumn(headerIndex, ALIAS.caseManager);
+            const colSex          = findColumn(headerIndex, ALIAS.sex);
+            const colWeight       = findColumn(headerIndex, ALIAS.weight);
+            const colDob          = findColumn(headerIndex, ALIAS.dob);
+            const colAge          = findColumn(headerIndex, ALIAS.age);
+
+            if (colCaseManager === -1) {
+                resultEl.innerHTML = `
+                    <div class="row err">Could not find a "Case Manager" column.</div>
+                    <div class="row" style="font-size:12.5px;color:#5b6e8c;">
+                        Detected headers: <strong>${escapeHtml(headers.join(' · '))}</strong>
+                    </div>
+                `;
+                return;
+            }
+
+            const getCell = (row, idx) => idx === -1 ? '' : String(row[idx] == null ? '' : row[idx]).trim();
+
+            const myFull  = (currentUser.fullName || '').toLowerCase().trim();
             const myEmail = (currentUser.email || '').toLowerCase().trim();
             const myPhone = (currentUser.phone || '').replace(/\D/g, '');
             const myParts = myFull.split(/\s+/).filter(Boolean);
             const myFirst = myParts[0] || '';
-            const myLast = myParts[myParts.length - 1] || '';
+            const myLast  = myParts[myParts.length - 1] || '';
 
             function matchesMe(value) {
                 if (!value) return false;
@@ -1143,42 +1217,32 @@ const API = {
                 if (vNorm === myFull) return true;
                 if (vNorm === myEmail) return true;
                 if (vPhone && vPhone === myPhone) return true;
-                // Partial: contains full name, email, phone
                 if (myFull && vNorm.includes(myFull)) return true;
                 if (myEmail && vNorm.includes(myEmail)) return true;
-                // First + last name both present
                 if (myFirst && myLast && myFirst !== myLast) {
                     if (vNorm.includes(myFirst) && vNorm.includes(myLast)) return true;
                 }
-                // Single-token match (e.g. "John" alone)
                 if (myParts.length === 1 && vNorm === myParts[0]) return true;
                 return false;
             }
 
-            const requiredHosp = headers.findIndex(h => h.toLowerCase() === 'hospital number' || h.toLowerCase() === 'hospital no');
-            if (requiredHosp === -1) {
-                resultEl.innerHTML = `<div class="row err">Missing required column: <strong>Hospital Number</strong></div>`;
-                return;
-            }
-
-            let imported = 0, skipped = 0, errors = 0;
+            let skipped = 0, errors = 0;
             const log = [];
             const mine = [];
 
             rows.slice(1).forEach((row, i) => {
                 const lineNo = i + 2;
-                const caseManagerRaw = get(row, ALIAS.caseManager);
-                const hospitalNo = get(row, ALIAS.hospitalNo);
+                const caseManagerRaw = getCell(row, colCaseManager);
+                const hospitalNo = getCell(row, colHospitalNo);
 
-                if (!caseManagerRaw) { skipped++; log.push({ t: 'skip', m: `Row ${lineNo}: no Case Manager specified` }); return; }
+                if (!caseManagerRaw) { skipped++; log.push({ t: 'skip', m: `Row ${lineNo}: no Case Manager` }); return; }
                 if (!matchesMe(caseManagerRaw)) { skipped++; log.push({ t: 'skip', m: `Row ${lineNo}: "${caseManagerRaw}" — not your account` }); return; }
                 if (!hospitalNo) { errors++; log.push({ t: 'err', m: `Row ${lineNo}: missing Hospital Number` }); return; }
 
-                const refillMonths = Number(get(row, ALIAS.refillMonths)) || 6;
-                const lastPickupRaw = get(row, ALIAS.lastPickup);
-                const lastPickupISO = toISODate(lastPickupRaw);
-                const dobISO = toISODate(get(row, ALIAS.dob));
-                const ageRaw = get(row, ALIAS.age);
+                const refillMonths = Number(getCell(row, colRefillMonths)) || 6;
+                const lastPickupISO = toISODate(getCell(row, colLastPickup));
+                const dobISO = toISODate(getCell(row, colDob));
+                const ageRaw = getCell(row, colAge);
                 const ageNum = ageRaw ? Number(ageRaw) : (dobISO ? (function(){
                     const d = new Date(dobISO); const t = new Date();
                     let a = t.getFullYear() - d.getFullYear();
@@ -1186,13 +1250,13 @@ const API = {
                     if (m < 0 || (m === 0 && t.getDate() < d.getDate())) a--;
                     return a;
                 })() : null);
-                const weightRaw = get(row, ALIAS.weight);
+                const weightRaw = getCell(row, colWeight);
                 const weightNum = weightRaw ? Number(weightRaw.replace(/[^\d.]/g, '')) : null;
 
                 const client = {
                     hospitalNo,
                     fullName: '',
-                    sex: get(row, ALIAS.sex) || '',
+                    sex: getCell(row, colSex) || '',
                     dateOfBirth: dobISO,
                     age: ageNum || null,
                     weight: isNaN(weightNum) ? null : weightNum,
@@ -1205,18 +1269,28 @@ const API = {
                     vlscLastCollection: null,
                     vlscNextCollection: null
                 };
-                // Pre-fill VLSC next using EDATE from last pickup if not provided
                 if (lastPickupISO) {
                     const nextV = addMonths(new Date(lastPickupISO), refillMonths === 3 ? 3 : 12);
-                    if (nextV) client.vlscNextCollection = nextV.toISOString().slice(0,10);
+                    if (nextV) client.vlscNextCollection = toISODate(nextV);
                 }
                 mine.push(client);
             });
 
             if (mine.length === 0) {
-                resultEl.innerHTML = `<div class="row err">No rows matched your account. Check that the "Case Manager" column contains your name, email, or phone.</div>` +
-                    `<div class="row" style="font-size:12.5px;color:#5b6e8c;">Your registered identifiers: <strong>${escapeHtml(currentUser.fullName)}</strong> · ${escapeHtml(currentUser.email)} · ${escapeHtml(currentUser.phone)}</div>` +
-                    log.slice(0, 8).map(l => `<div class="row ${l.t}">${escapeHtml(l.m)}</div>`).join('');
+                resultEl.innerHTML = `
+                    <div class="row err">No rows matched your account.</div>
+                    <div class="row" style="font-size:12.5px;color:#5b6e8c;">
+                        Your registered identifiers:
+                        <strong>${escapeHtml(currentUser.fullName)}</strong> ·
+                        ${escapeHtml(currentUser.email)} ·
+                        ${escapeHtml(currentUser.phone)}
+                    </div>
+                    <div class="row" style="font-size:12px;color:#7a8ba8;">
+                        Detected <em>Case Manager</em> column: <strong>${escapeHtml(headers[colCaseManager])}</strong><br>
+                        Sample value from row 2: <strong>${escapeHtml(getCell(rows[1], colCaseManager))}</strong>
+                    </div>
+                    ${log.slice(0, 10).map(l => `<div class="row ${l.t}">${escapeHtml(l.m)}</div>`).join('')}
+                `;
                 return;
             }
 
@@ -1226,12 +1300,13 @@ const API = {
 
             resultEl.innerHTML = `
                 <div class="row ok"><strong>✔ Imported ${inserted.length} client${inserted.length!==1?'s':''} under your account</strong></div>
-                ${skipped ? `<div class="row skip">Skipped ${skipped} row${skipped!==1?'s':''} (not assigned to you or missing Case Manager)</div>` : ''}
+                ${skipped ? `<div class="row skip">Skipped ${skipped} row${skipped!==1?'s':''}</div>` : ''}
                 ${errors ? `<div class="row err">Errors ${errors} row${errors!==1?'s':''}</div>` : ''}
-                <div class="row" style="font-size:12px;color:#7a8ba8;">Tip: Edit each new client to fill in Name, Phone, Location, and other details.</div>
+                ${log.length ? `<details style="margin-top:10px;"><summary style="cursor:pointer;font-size:12.5px;color:#5b6e8c;">Show details (${log.length})</summary>${log.slice(0,50).map(l => `<div class="row ${l.t}">${escapeHtml(l.m)}</div>`).join('')}</details>` : ''}
             `;
             showToast(`Imported ${inserted.length} clients`, 'success');
         } catch (err) {
+            console.error(err);
             resultEl.innerHTML = `<div class="row err">Import failed: ${escapeHtml(err.message)}</div>`;
         }
     });
