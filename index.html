@@ -12,12 +12,27 @@ html{font-size:16px}
 body{background:#f4f7fc;min-height:100vh;min-height:100dvh;display:flex;align-items:flex-start;justify-content:center;padding:16px;overflow-x:hidden}
 @media(max-width:640px){body{padding:8px}}
 .hidden{display:none!important}
-.btn-primary{background:#1e3c72;color:#fff;border:none;padding:12px 22px;border-radius:40px;font-weight:600;font-size:14.5px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
+.btn-primary{background:#1e3c72;color:#fff;border:none;padding:11px 20px;border-radius:40px;font-weight:600;font-size:14px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
 .btn-primary:hover{background:#0f2a4f}
 .btn-primary:disabled{opacity:.6;cursor:not-allowed}
-.btn-primary svg,.btn-outline svg{width:17px;height:17px;fill:currentColor;flex-shrink:0}
-.btn-outline{background:transparent;border:1.5px solid #e2e8f0;padding:10px 18px;border-radius:40px;font-weight:500;color:#5b6e8c;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px;font-size:14px;white-space:nowrap}
+.btn-primary svg,.btn-outline svg,.btn-mini svg{width:16px;height:16px;fill:currentColor;flex-shrink:0}
+.btn-outline{background:transparent;border:1.5px solid #e2e8f0;padding:9px 16px;border-radius:40px;font-weight:500;color:#5b6e8c;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;white-space:nowrap}
 .btn-outline:hover{background:#f1f5f9;border-color:#b9c7db;color:#0b1e33}
+.btn-success{background:#059669;color:#fff;border:none;padding:10px 18px;border-radius:40px;font-weight:600;font-size:13.5px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;transition:.15s}
+.btn-success:hover{background:#047857}
+.btn-success svg{width:16px;height:16px;fill:currentColor}
+.btn-warn{background:#d97706;color:#fff;border:none;padding:10px 18px;border-radius:40px;font-weight:600;font-size:13.5px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;transition:.15s}
+.btn-warn:hover{background:#b45309}
+.btn-warn svg{width:16px;height:16px;fill:currentColor}
+.btn-mini{background:#eef2f9;border:none;padding:5px 10px;border-radius:40px;font-size:11px;font-weight:600;color:#1e3c72;cursor:pointer;display:inline-flex;align-items:center;gap:3px;transition:.15s}
+.btn-mini:hover{background:#dbe4f0}
+.btn-mini.danger{background:#fee2e2;color:#b91c1c}
+.btn-mini.danger:hover{background:#fecaca}
+.btn-mini.success{background:#e3f5e9;color:#0f6b3e}
+.btn-mini.success:hover{background:#c6ead4}
+.action-group{display:inline-flex;gap:4px;flex-wrap:wrap}
+
+/* AUTH */
 .auth-container{background:#fff;max-width:440px;width:100%;padding:36px 28px;border-radius:28px;box-shadow:0 20px 45px -12px rgba(0,0,0,.2);margin:auto}
 @media(max-width:480px){.auth-container{padding:28px 20px;border-radius:22px}}
 .auth-header{text-align:center;margin-bottom:26px}
@@ -34,6 +49,8 @@ body{background:#f4f7fc;min-height:100vh;min-height:100dvh;display:flex;align-it
 .auth-footer a{color:#1e3c72;font-weight:600;text-decoration:none;cursor:pointer}
 .auth-footer a:hover{text-decoration:underline}
 .error-msg{color:#b91c1c;font-size:12.5px;margin-top:4px;display:block}
+
+/* DASHBOARD */
 .dashboard-container{display:none;width:100%;max-width:1400px;margin:0 auto}
 .dashboard-container.active{display:block}
 .dashboard-card{background:#fff;border-radius:28px;box-shadow:0 20px 40px -12px rgba(0,0,0,.12);padding:24px 26px;width:100%}
@@ -52,22 +69,25 @@ body{background:#f4f7fc;min-height:100vh;min-height:100dvh;display:flex;align-it
 .stat-card .stat-icon svg{width:24px;height:24px;fill:#1e3c72}
 .stat-card .info h4{font-size:11px;color:#5b6e8c;font-weight:500;text-transform:uppercase;letter-spacing:.3px}
 .stat-card .info span{font-size:22px;font-weight:700;color:#0b1e33}
+
+/* TOOLBAR */
+.toolbar{background:#f9fbfe;border:1.5px solid #eef2f9;border-radius:16px;padding:12px 14px;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.toolbar .group{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.filter-pills{display:inline-flex;background:#eef2f9;padding:3px;border-radius:40px;gap:2px}
+.filter-pills button{background:transparent;border:none;padding:7px 14px;border-radius:40px;font-size:12px;font-weight:600;color:#5b6e8c;cursor:pointer;transition:.15s;white-space:nowrap}
+.filter-pills button.active{background:#1e3c72;color:#fff}
+.filter-pills button:hover:not(.active){background:#dbe4f0}
+.search-box{position:relative;flex:1;min-width:180px;max-width:320px}
+.search-box svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;fill:#7a8ba8;pointer-events:none}
+.search-box input{width:100%;padding:9px 12px 9px 36px;border:1.5px solid #e2e8f0;border-radius:40px;font-size:13px;background:#fff;outline:none;font-family:inherit}
+.search-box input:focus{border-color:#1e3c72}
+
+/* TABLE */
 .table-actions{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px}
 .table-actions h3{font-size:17px;font-weight:600;color:#0b1e33;display:flex;align-items:center;gap:8px}
 .table-actions h3 svg{width:20px;height:20px;fill:#1e3c72}
-.clients-cards{display:none;flex-direction:column;gap:12px}
-@media(max-width:900px){.table-responsive{display:none}.clients-cards{display:flex}}
-.client-card{background:#fff;border:1.5px solid #eef2f9;border-radius:16px;padding:14px 16px}
-.client-card .card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
-.client-card .card-head .name{font-size:15px;font-weight:700;color:#0b1e33}
-.client-card .card-head .hosp{font-size:12px;color:#7a8ba8;font-weight:500;margin-top:2px}
-.client-card .card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 12px;font-size:12.5px;color:#3f5370;margin-bottom:10px}
-.client-card .card-grid .cg-item{display:flex;flex-direction:column}
-.client-card .card-grid .cg-item .lbl{font-size:10.5px;color:#7a8ba8;text-transform:uppercase;letter-spacing:.2px;font-weight:600}
-.client-card .card-grid .cg-item .val{font-weight:500;color:#1f2e46;margin-top:1px}
-.client-card .card-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:10px;border-top:1px solid #f1f5f9}
 .table-responsive{overflow-x:auto;border-radius:18px;border:1px solid #eef2f9;background:#fff}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:1200px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:1300px}
 th{background:#f2f6fd;color:#1e3c72;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.3px;padding:13px 10px;text-align:left;border-bottom:1.5px solid #dbe4f0;white-space:nowrap}
 td{padding:11px 10px;border-bottom:1px solid #edf2f9;color:#1f2e46;vertical-align:middle;white-space:nowrap}
 tr:last-child td{border-bottom:none}
@@ -80,10 +100,25 @@ tr:hover td{background:#fafdff}
 .status-cell{display:flex;flex-direction:column;gap:2px}
 .status-note{font-size:10px;color:#b45309;font-weight:500}
 .empty-row td{text-align:center;padding:32px 20px;color:#8a9bb8;font-style:italic;font-size:14px}
-.empty-row td svg{width:18px;height:18px;fill:#8a9bb8;vertical-align:middle;margin-right:5px}
+
+/* MOBILE CARDS */
+.clients-cards{display:none;flex-direction:column;gap:12px}
+@media(max-width:900px){.table-responsive{display:none}.clients-cards{display:flex}}
+.client-card{background:#fff;border:1.5px solid #eef2f9;border-radius:16px;padding:14px 16px}
+.client-card .card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.client-card .card-head .name{font-size:15px;font-weight:700;color:#0b1e33}
+.client-card .card-head .hosp{font-size:12px;color:#7a8ba8;font-weight:500;margin-top:2px}
+.client-card .card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 12px;font-size:12.5px;color:#3f5370;margin-bottom:10px}
+.client-card .card-grid .cg-item{display:flex;flex-direction:column}
+.client-card .card-grid .cg-item .lbl{font-size:10.5px;color:#7a8ba8;text-transform:uppercase;letter-spacing:.2px;font-weight:600}
+.client-card .card-grid .cg-item .val{font-weight:500;color:#1f2e46;margin-top:1px}
+.client-card .card-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:10px;border-top:1px solid #f1f5f9;flex-wrap:wrap}
+
+/* MODALS */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(11,30,51,.5);backdrop-filter:blur(4px);z-index:1000;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
 .modal-overlay.active{display:flex}
 .modal-content{background:#fff;max-width:880px;width:100%;border-radius:24px;padding:26px 28px;max-height:calc(100vh - 32px);overflow-y:auto;box-shadow:0 30px 60px -15px rgba(0,0,0,.35);animation:modalIn .2s ease-out;margin:auto}
+.modal-content.wide{max-width:1000px}
 @media(max-width:640px){.modal-content{padding:20px 16px;border-radius:18px}.modal-overlay{padding:8px;align-items:flex-end}}
 @keyframes modalIn{from{opacity:0;transform:scale(.97) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:10px}
@@ -100,6 +135,8 @@ tr:hover td{background:#fafdff}
 .modal-field input:focus,.modal-field select:focus{border-color:#1e3c72;box-shadow:0 0 0 3px rgba(30,60,114,.08)}
 .required-star{color:#d43f3f;font-size:14px;margin-left:2px}
 .modal-footer{margin-top:24px;display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+
+/* DETAIL GRID */
 .detail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px 18px}
 .detail-item{display:flex;flex-direction:column;gap:3px}
 .detail-item .label{font-size:11px;font-weight:600;color:#7a8ba8;text-transform:uppercase;letter-spacing:.3px;display:flex;align-items:center;gap:5px}
@@ -108,22 +145,53 @@ tr:hover td{background:#fafdff}
 .detail-item .value.empty{color:#a0b0c8;font-style:italic}
 .detail-section-title{grid-column:1/-1;font-size:15px;font-weight:700;color:#1e3c72;margin-top:6px;padding-bottom:6px;border-bottom:2px solid #eef2f9;display:flex;align-items:center;gap:7px}
 .detail-section-title svg{width:18px;height:18px;fill:#1e3c72}
+
+/* LEGEND */
 .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:12px;color:#4b5e7a}
 .legend-item{display:flex;align-items:center;gap:5px}
 .legend-color{width:12px;height:12px;border-radius:4px}
 .legend-active{background:#e3f5e9;border:1px solid #b3dfc5}
 .legend-defaulted{background:#fff1d6;border:1px solid #f3d99b}
 .legend-iit{background:#fee2e2;border:1px solid #f5b5b5}
-.view-btn{background:#eef2f9;border:none;padding:6px 11px;border-radius:40px;font-size:11.5px;font-weight:600;color:#1e3c72;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
-.view-btn svg{width:13px;height:13px;fill:currentColor}
+
+/* TOAST */
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:#0b1e33;color:#fff;padding:11px 20px;border-radius:40px;font-size:13.5px;font-weight:500;z-index:2000;transition:.3s;max-width:calc(100vw - 32px);text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast.success{background:#065f46}
 .toast.error{background:#991b1b}
+
+/* MONTH GROUPS (for due modals) */
+.month-group{margin-bottom:18px;border:1.5px solid #eef2f9;border-radius:14px;overflow:hidden}
+.month-group-head{background:#f2f6fd;padding:10px 14px;font-weight:700;color:#1e3c72;font-size:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.month-group-head .count{font-size:12px;font-weight:600;background:#fff;padding:3px 10px;border-radius:40px;color:#1e3c72}
+.month-group-body{padding:6px 0}
+.due-item{padding:10px 14px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.due-item:first-child{border-top:none}
+.due-item .info{flex:1;min-width:200px}
+.due-item .info .name{font-weight:600;color:#0b1e33;font-size:14px}
+.due-item .info .meta{font-size:12px;color:#7a8ba8;margin-top:2px}
+.due-item .date{font-weight:600;color:#1e3c72;font-size:13px;padding:5px 12px;background:#eef2f9;border-radius:40px}
+.empty-state{text-align:center;padding:36px 16px;color:#8a9bb8;font-style:italic;font-size:14px}
+
+/* IMPORT/EXPORT */
+.import-help{background:#f0f9ff;border-left:3px solid #0369a1;padding:12px 16px;border-radius:10px;font-size:13px;color:#0c4a6e;margin-bottom:16px;line-height:1.6}
+.import-help strong{color:#0369a1}
+.file-input-wrap{position:relative;border:2px dashed #cbd5e1;border-radius:16px;padding:28px 20px;text-align:center;transition:.15s;cursor:pointer;background:#f9fbfe}
+.file-input-wrap:hover{border-color:#1e3c72;background:#f2f6fd}
+.file-input-wrap svg{width:38px;height:38px;fill:#1e3c72;margin-bottom:10px}
+.file-input-wrap input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.file-input-wrap .t1{font-weight:600;color:#0b1e33;font-size:15px}
+.file-input-wrap .t2{color:#7a8ba8;font-size:13px;margin-top:4px}
+.import-result{margin-top:16px}
+.import-result .row{padding:10px 14px;border-bottom:1px solid #eef2f9;font-size:13.5px}
+.import-result .row.ok{color:#0f6b3e}
+.import-result .row.skip{color:#a16207}
+.import-result .row.err{color:#b91c1c}
 </style>
 </head>
 <body>
 
+<!-- ============= LOGIN ============= -->
 <div class="auth-container" id="loginPage">
 <div class="auth-header">
 <div class="icon-circle"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg></div>
@@ -133,11 +201,12 @@ tr:hover td{background:#fafdff}
 <div class="input-group"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><input type="text" id="loginEmailOrPhone" placeholder="Email or Phone Number" required autocomplete="username"></div>
 <div class="input-group"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password"></div>
 <span class="error-msg" id="loginError"></span>
-<button type="submit" class="btn-primary" id="loginBtn"><svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg> Sign In</button>
+<button type="submit" class="btn-primary" id="loginBtn" style="width:100%;padding:13px;border-radius:14px;font-size:15px;margin-top:4px"><svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg> Sign In</button>
 </form>
 <div class="auth-footer">Don't have an account? <a id="showSignup">Sign Up</a></div>
 </div>
 
+<!-- ============= SIGNUP ============= -->
 <div class="auth-container hidden" id="signupPage">
 <div class="auth-header">
 <div class="icon-circle"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg></div>
@@ -150,11 +219,12 @@ tr:hover td{background:#fafdff}
 <div class="input-group"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><input type="text" id="signupFacility" placeholder="Facility / Hospital" required></div>
 <div class="input-group"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><input type="password" id="signupPassword" placeholder="Set Password (min 6 chars)" required minlength="6" autocomplete="new-password"></div>
 <span class="error-msg" id="signupError"></span>
-<button type="submit" class="btn-primary" id="signupBtn"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> Sign Up</button>
+<button type="submit" class="btn-primary" id="signupBtn" style="width:100%;padding:13px;border-radius:14px;font-size:15px;margin-top:4px"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> Sign Up</button>
 </form>
 <div class="auth-footer">Already have an account? <a id="showLogin">Sign In</a></div>
 </div>
 
+<!-- ============= DASHBOARD ============= -->
 <div class="dashboard-container" id="dashboardPage">
 <div class="dashboard-card">
 <div class="dash-header">
@@ -164,18 +234,59 @@ tr:hover td{background:#fafdff}
 <button class="btn-outline" id="logoutBtn"><svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg> Logout</button>
 </div>
 </div>
+
+<!-- STATS -->
 <div class="stats-row">
 <div class="stat-card"><div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><div class="info"><h4>Total Clients</h4><span id="totalClients">0</span></div></div>
-<div class="stat-card"><div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg></div><div class="info"><h4>Active Refills</h4><span id="activeRefills">0</span></div></div>
+<div class="stat-card"><div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg></div><div class="info"><h4>Active</h4><span id="activeRefills">0</span></div></div>
+<div class="stat-card"><div class="stat-icon" style="background:#fff5e6"><svg viewBox="0 0 24 24" style="fill:#d97706"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></div><div class="info"><h4>Defaulted</h4><span id="defaultedCount">0</span></div></div>
+<div class="stat-card"><div class="stat-icon" style="background:#fee2e2"><svg viewBox="0 0 24 24" style="fill:#b91c1c"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></div><div class="info"><h4>IIT</h4><span id="iitCount">0</span></div></div>
 </div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+<div class="group">
+<div class="filter-pills" id="filterPills">
+<button data-filter="all" class="active">All</button>
+<button data-filter="active">Active</button>
+<button data-filter="defaulted">Defaulted</button>
+<button data-filter="iit">IIT</button>
+</div>
+<select id="sortSelect" style="padding:8px 12px;border:1.5px solid #e2e8f0;border-radius:40px;font-size:13px;background:#fff;outline:none;font-family:inherit;color:#1e3c72;font-weight:600;cursor:pointer">
+<option value="nextPickup_asc">Next Pickup ↑</option>
+<option value="nextPickup_desc">Next Pickup ↓</option>
+<option value="name_asc">Name A→Z</option>
+<option value="name_desc">Name Z→A</option>
+<option value="hospital_asc">Hospital No. ↑</option>
+<option value="created_desc">Newest First</option>
+</select>
+</div>
+<div class="search-box">
+<svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+<input type="text" id="searchBox" placeholder="Search hospital no, name, phone...">
+</div>
+</div>
+
+<!-- ACTION BAR -->
 <div class="table-actions">
-<h3><svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg> Client Diary</h3>
+<h3><svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg> Client Diary <span id="filterCount" style="font-size:13px;color:#7a8ba8;font-weight:500;margin-left:6px"></span></h3>
+<div class="group" style="display:flex;gap:8px;flex-wrap:wrap">
+<button class="btn-warn" id="btnRefillDue"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> Refill Due</button>
+<button class="btn-warn" id="btnVlscDue" style="background:#7c3aed"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> VLSC Due</button>
+<button class="btn-success" id="btnImport"><svg viewBox="0 0 24 24"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/></svg> Import</button>
+<button class="btn-success" id="btnExport" style="background:#0369a1"><svg viewBox="0 0 24 24"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z" transform="rotate(180 12 12)"/></svg> Export</button>
 <button class="btn-primary" id="openAddModal"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg> Add Client</button>
 </div>
+</div>
+
+<!-- TABLE -->
 <div class="table-responsive">
-<table><thead><tr><th>Hospital No.</th><th>Full Name</th><th>Age</th><th>Weight</th><th>Height</th><th>Location</th><th>Phone</th><th>Next Pickup</th><th>VLSC Next</th><th>Status</th><th>Action</th></tr></thead><tbody id="tableBody"></tbody></table>
+<table><thead><tr>
+<th>Hospital No.</th><th>Full Name</th><th>Age</th><th>Weight</th><th>Height</th><th>Location</th><th>Phone</th><th>Next Pickup</th><th>VLSC Next</th><th>Status</th><th>Actions</th>
+</tr></thead><tbody id="tableBody"></tbody></table>
 </div>
 <div class="clients-cards" id="clientsCards"></div>
+
 <div class="legend">
 <div class="legend-item"><span class="legend-color legend-active"></span> Active</div>
 <div class="legend-item"><span class="legend-color legend-defaulted"></span> Defaulted (14+ days)</div>
@@ -184,26 +295,28 @@ tr:hover td{background:#fafdff}
 </div>
 </div>
 
+<!-- ============= ADD/EDIT CLIENT MODAL ============= -->
 <div class="modal-overlay" id="addClientModal">
 <div class="modal-content">
 <div class="modal-header">
-<h2><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> Add New Client</h2>
+<h2><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> <span id="clientModalTitle">Add New Client</span></h2>
 <button class="modal-close" id="closeModalBtn" type="button"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
 </div>
 <form id="clientForm">
+<input type="hidden" id="editingClientId">
 <div class="modal-form-grid">
-<div class="modal-field"><label><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> Full Name (optional)</label><input type="text" id="fullName" placeholder="e.g. Jane Doe"></div>
-<div class="modal-field"><label><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Hospital No. <span class="required-star">*</span></label><input type="text" id="hospitalNo" placeholder="e.g. H12345" required></div>
-<div class="modal-field"><label><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> Age</label><input type="number" id="age" placeholder="Years" min="0" max="120"></div>
-<div class="modal-field"><label><svg viewBox="0 0 24 24"><path d="M12 3L4 9v12h16V9l-8-6zm0 2.5l6 4.5v9H6v-9l6-4.5zM9 17h6v-2H9v2zm0-4h6v-2H9v2zm0-4h6V7H9v2z"/></svg> Weight (kg)</label><input type="number" id="weight" placeholder="kg" step="0.1" min="0"></div>
-<div class="modal-field"><label><svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.87L12 5.84zM17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 7c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM3 21.5h8v-8H3v8zm2-6h4v4H5v-4z"/></svg> Height (cm)</label><input type="number" id="height" placeholder="cm" min="0"></div>
-<div class="modal-field"><label><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Location</label><input type="text" id="location" placeholder="e.g. Urban Clinic"></div>
-<div class="modal-field"><label><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Address</label><input type="text" id="address" placeholder="Street, City"></div>
-<div class="modal-field"><label><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> Phone</label><input type="text" id="phone" placeholder="+123 456 7890"></div>
-<div class="modal-field"><label><svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg> Last Pickup Date</label><input type="date" id="lastPickupDate" required></div>
-<div class="modal-field"><label><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> Refill Months</label><select id="refillMonths"><option value="3">3 months (new client)</option><option value="6" selected>6 months (stable)</option></select></div>
-<div class="modal-field"><label><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> VLSC Last Collection</label><input type="date" id="vlscLastCollection"></div>
-<div class="modal-field"><label><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> VLSC Next Collection</label><input type="date" id="vlscNextCollection" readonly placeholder="Auto-calculated"><span class="text-muted" style="font-size:10.5px;">Auto: +3 mo (new) / +1 yr (stable)</span></div>
+<div class="modal-field"><label>Full Name (optional)</label><input type="text" id="fullName" placeholder="e.g. Jane Doe"></div>
+<div class="modal-field"><label>Hospital No. <span class="required-star">*</span></label><input type="text" id="hospitalNo" placeholder="e.g. H12345" required></div>
+<div class="modal-field"><label>Age</label><input type="number" id="age" placeholder="Years" min="0" max="120"></div>
+<div class="modal-field"><label>Weight (kg)</label><input type="number" id="weight" placeholder="kg" step="0.1" min="0"></div>
+<div class="modal-field"><label>Height (cm)</label><input type="number" id="height" placeholder="cm" min="0"></div>
+<div class="modal-field"><label>Location</label><input type="text" id="location" placeholder="e.g. Urban Clinic"></div>
+<div class="modal-field"><label>Address</label><input type="text" id="address" placeholder="Street, City"></div>
+<div class="modal-field"><label>Phone</label><input type="text" id="phone" placeholder="+123 456 7890"></div>
+<div class="modal-field"><label>Last Pickup Date <span class="required-star">*</span></label><input type="date" id="lastPickupDate" required></div>
+<div class="modal-field"><label>Refill Months</label><select id="refillMonths"><option value="3">3 months (new client)</option><option value="6" selected>6 months (stable)</option></select></div>
+<div class="modal-field"><label>VLSC Last Collection</label><input type="date" id="vlscLastCollection"></div>
+<div class="modal-field"><label>VLSC Next Collection</label><input type="date" id="vlscNextCollection" readonly><span class="text-muted" style="font-size:10.5px;">Auto: +3 mo (new) / +1 yr (stable)</span></div>
 </div>
 <div class="modal-footer">
 <button type="button" class="btn-outline" id="cancelModalBtn">Cancel</button>
@@ -213,6 +326,7 @@ tr:hover td{background:#fafdff}
 </div>
 </div>
 
+<!-- ============= PATIENT DETAIL MODAL ============= -->
 <div class="modal-overlay" id="detailModal">
 <div class="modal-content" style="max-width:760px;">
 <div class="modal-header">
@@ -226,13 +340,64 @@ tr:hover td{background:#fafdff}
 </div>
 </div>
 
+<!-- ============= REFILL DUE MODAL ============= -->
+<div class="modal-overlay" id="refillDueModal">
+<div class="modal-content wide">
+<div class="modal-header">
+<h2><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> Clients Due for Refill (by Month)</h2>
+<button class="modal-close" id="closeRefillDueBtn" type="button"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+</div>
+<div id="refillDueContent"></div>
+<div class="modal-footer" style="margin-top:20px;">
+<button type="button" class="btn-outline" id="closeRefillDueFooterBtn">Close</button>
+</div>
+</div>
+</div>
+
+<!-- ============= VLSC DUE MODAL ============= -->
+<div class="modal-overlay" id="vlscDueModal">
+<div class="modal-content wide">
+<div class="modal-header">
+<h2><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> Clients Due for VLSC (by Month)</h2>
+<button class="modal-close" id="closeVlscDueBtn" type="button"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+</div>
+<div id="vlscDueContent"></div>
+<div class="modal-footer" style="margin-top:20px;">
+<button type="button" class="btn-outline" id="closeVlscDueFooterBtn">Close</button>
+</div>
+</div>
+</div>
+
+<!-- ============= IMPORT MODAL ============= -->
+<div class="modal-overlay" id="importModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2><svg viewBox="0 0 24 24"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/></svg> Import Clients from Excel/CSV</h2>
+<button class="modal-close" id="closeImportBtn" type="button"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+</div>
+<div class="import-help">
+<strong>Excel/CSV must have these columns (header row):</strong><br>
+<code>managerEmail</code> or <code>managerPhone</code> · <code>hospitalNo</code> · <code>fullName</code> · <code>age</code> · <code>weight</code> · <code>height</code> · <code>location</code> · <code>address</code> · <code>phone</code> · <code>lastPickupDate</code> · <code>refillMonths</code> · <code>vlscLastCollection</code><br>
+<em>Only rows where managerEmail/Phone matches YOUR logged-in account will be imported.</em>
+</div>
+<label class="file-input-wrap">
+<svg viewBox="0 0 24 24"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/></svg>
+<div class="t1">Click or drop your Excel/CSV file here</div>
+<div class="t2">Accepts .csv, .xlsx, .xls (CSV preferred)</div>
+<input type="file" id="importFile" accept=".csv,.xlsx,.xls">
+</label>
+<div class="import-result" id="importResult"></div>
+<div class="modal-footer" style="margin-top:20px;">
+<button type="button" class="btn-outline" id="closeImportFooterBtn">Close</button>
+</div>
+</div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 /* ============================================================================
-   PLHIV Case Manager Diary — Cloud NoSQL (JSONBin.io direct)
-   ============================================================================
-   ⚠️  PASTE YOUR CREDENTIALS IN THE 3 LINES BELOW
+   PLHIV Case Manager Diary — Full Featured Cloud Edition
    ============================================================================ */
 const JSONBIN_MASTER_KEY  = '$2a$10$TrXUEmrKiqr2E06xGo2WbuSj.an30IBO0tP.HmOHRc1oxrPPXaYpq';
 const JSONBIN_USERS_BIN   = '6ac375efffd5d160534ea95c';
@@ -258,10 +423,7 @@ const API = {
     async writeBin(binId, payload) {
         const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': JSONBIN_MASTER_KEY
-            },
+            headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_MASTER_KEY },
             body: JSON.stringify(payload)
         });
         if (!res.ok) {
@@ -270,60 +432,36 @@ const API = {
         }
         return true;
     },
-    async getUsers() {
-        const d = await this.readBin(JSONBIN_USERS_BIN);
-        return Array.isArray(d.users) ? d.users : [];
-    },
+    async getUsers() { const d = await this.readBin(JSONBIN_USERS_BIN); return Array.isArray(d.users) ? d.users : []; },
     async saveUsers(users) { return this.writeBin(JSONBIN_USERS_BIN, { users }); },
-    async getClientsAll() {
-        const d = await this.readBin(JSONBIN_CLIENTS_BIN);
-        return Array.isArray(d.clients) ? d.clients : [];
-    },
+    async getClientsAll() { const d = await this.readBin(JSONBIN_CLIENTS_BIN); return Array.isArray(d.clients) ? d.clients : []; },
     async saveClients(clients) { return this.writeBin(JSONBIN_CLIENTS_BIN, { clients }); },
 
     async sha256(text) {
         const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
         return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
     },
-    genId() {
-        if (crypto.randomUUID) return crypto.randomUUID();
-        return Date.now().toString(36) + Math.random().toString(36).slice(2);
-    },
+    genId() { return (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)); },
 
     async signup({ fullName, email, phone, facility, password }) {
         const users = await this.getUsers();
         const emailLower = email.toLowerCase().trim();
         const phoneTrim = phone.trim();
-        if (users.some(u => u.email === emailLower || u.phone === phoneTrim)) {
-            throw new Error('Email or phone already registered.');
-        }
+        if (users.some(u => u.email === emailLower || u.phone === phoneTrim)) throw new Error('Email or phone already registered.');
         const salt = this.genId() + this.genId();
         const passwordHash = await this.sha256(password + '::' + salt);
-        const newUser = {
-            id: this.genId(),
-            fullName: fullName.trim(),
-            email: emailLower,
-            phone: phoneTrim,
-            facility: facility.trim(),
-            passwordHash, salt,
-            sessionToken: this.genId(),
-            createdAt: new Date().toISOString()
-        };
+        const newUser = { id: this.genId(), fullName: fullName.trim(), email: emailLower, phone: phoneTrim, facility: facility.trim(), passwordHash, salt, sessionToken: this.genId(), createdAt: new Date().toISOString() };
         users.push(newUser);
         await this.saveUsers(users);
         this.setToken(newUser.sessionToken);
         const { passwordHash: _, salt: __, sessionToken: ___, ...safe } = newUser;
         return safe;
     },
-
     async login(emailOrPhone, password) {
         const users = await this.getUsers();
         const needle = emailOrPhone.toLowerCase().trim();
         const phoneTrim = emailOrPhone.trim();
-        const idx = users.findIndex(u =>
-            (u.email && u.email === needle) ||
-            (u.phone && u.phone === phoneTrim)
-        );
+        const idx = users.findIndex(u => (u.email && u.email === needle) || (u.phone && u.phone === phoneTrim));
         if (idx === -1) throw new Error('Invalid credentials.');
         const user = users[idx];
         const hash = await this.sha256(password + '::' + user.salt);
@@ -335,7 +473,6 @@ const API = {
         const { passwordHash: _, salt: __, sessionToken: ___, ...safe } = user;
         return safe;
     },
-
     async me() {
         const token = this.getToken();
         if (!token) return null;
@@ -345,10 +482,7 @@ const API = {
             if (!user) { this.clearToken(); return null; }
             const { passwordHash: _, salt: __, sessionToken: ___, ...safe } = user;
             return safe;
-        } catch (e) {
-            console.warn('me() failed:', e);
-            return null;
-        }
+        } catch (e) { console.warn('me() failed:', e); return null; }
     },
     logout() { this.clearToken(); },
 
@@ -360,26 +494,54 @@ const API = {
         const all = await this.getClientsAll();
         return all.filter(c => String(c.managerId) === String(user.id));
     },
-
     async addClient(client) {
         const token = this.getToken();
         const users = await this.getUsers();
         const user = users.find(u => u.sessionToken === token);
         if (!user) throw new Error('Session expired.');
         const all = await this.getClientsAll();
-        const newClient = {
-            ...client,
-            id: this.genId(),
-            managerId: user.id,
-            createdAt: new Date().toISOString()
-        };
+        const newClient = { ...client, id: this.genId(), managerId: user.id, createdAt: new Date().toISOString() };
         all.push(newClient);
         await this.saveClients(all);
         return newClient;
+    },
+    async updateClient(updated) {
+        const token = this.getToken();
+        const users = await this.getUsers();
+        const user = users.find(u => u.sessionToken === token);
+        if (!user) throw new Error('Session expired.');
+        const all = await this.getClientsAll();
+        const idx = all.findIndex(c => String(c.id) === String(updated.id) && String(c.managerId) === String(user.id));
+        if (idx === -1) throw new Error('Client not found.');
+        all[idx] = { ...all[idx], ...updated };
+        await this.saveClients(all);
+        return all[idx];
+    },
+    async deleteClient(id) {
+        const token = this.getToken();
+        const users = await this.getUsers();
+        const user = users.find(u => u.sessionToken === token);
+        if (!user) throw new Error('Session expired.');
+        const all = await this.getClientsAll();
+        const filtered = all.filter(c => !(String(c.id) === String(id) && String(c.managerId) === String(user.id)));
+        await this.saveClients(filtered);
+        return true;
+    },
+    // Bulk import — matches rows to logged-in manager
+    async bulkImport(rows, managerId) {
+        const all = await this.getClientsAll();
+        const imported = [];
+        for (const row of rows) {
+            const c = { ...row, id: this.genId(), managerId, createdAt: new Date().toISOString() };
+            all.push(c);
+            imported.push(c);
+        }
+        await this.saveClients(all);
+        return imported;
     }
 };
 
-/* ==================== UI APPLICATION ==================== */
+/* ==================== UI ==================== */
 (function() {
     const $ = id => document.getElementById(id);
 
@@ -393,6 +555,8 @@ const API = {
     const managerInfo = $('managerInfo');
     const totalClientsEl = $('totalClients');
     const activeRefillsEl = $('activeRefills');
+    const defaultedCountEl = $('defaultedCount');
+    const iitCountEl = $('iitCount');
     const tableBody = $('tableBody');
     const clientsCards = $('clientsCards');
     const addClientModal = $('addClientModal');
@@ -403,10 +567,19 @@ const API = {
     const vlscNextInput = $('vlscNextCollection');
     const refillMonthsSelect = $('refillMonths');
     const toast = $('toast');
+    const filterCount = $('filterCount');
+
+    const refillDueModal = $('refillDueModal');
+    const vlscDueModal = $('vlscDueModal');
+    const importModal = $('importModal');
 
     let currentUser = null;
     let clients = [];
+    let filterStatus = 'all';
+    let sortKey = 'nextPickup_asc';
+    let searchTerm = '';
 
+    /* ---------- Helpers ---------- */
     function formatDate(date) {
         if (!date) return '—';
         const d = new Date(date);
@@ -440,20 +613,71 @@ const API = {
         toast.textContent = msg;
         toast.className = 'toast show ' + type;
         clearTimeout(toast._t);
-        toast._t = setTimeout(() => { toast.className = 'toast ' + type; }, 3000);
+        toast._t = setTimeout(() => { toast.className = 'toast ' + type; }, 3200);
+    }
+    function monthLabel(d) { return d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); }
+    function monthKey(d) { return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0'); }
+
+    function computeNextPickup(client) {
+        const last = client.lastPickupDate ? new Date(client.lastPickupDate) : null;
+        const rm = client.refillMonths || 6;
+        return last ? addMonths(last, rm) : null;
+    }
+    function computeVlscNext(client) {
+        const last = client.vlscLastCollection ? new Date(client.vlscLastCollection) : null;
+        if (!last) return null;
+        const monthsToAdd = (client.refillMonths === 3) ? 3 : 12;
+        return addMonths(last, monthsToAdd);
     }
 
-    function updateVlscNext() {
-        const lastVlsc = vlscLastInput.value;
-        if (!lastVlsc) { vlscNextInput.value = ''; return; }
-        const refill = refillMonthsSelect.value;
-        const monthsToAdd = (refill === '3') ? 3 : 12;
-        const next = addMonths(new Date(lastVlsc), monthsToAdd);
-        if (next) vlscNextInput.value = next.toISOString().slice(0,10);
-    }
-    vlscLastInput.addEventListener('change', updateVlscNext);
-    refillMonthsSelect.addEventListener('change', updateVlscNext);
+    /* ---------- Filtering + Sorting ---------- */
+    function getFilteredSorted() {
+        let list = clients.filter(c => String(c.managerId) === String(currentUser.id));
 
+        // Filter by status
+        if (filterStatus !== 'all') {
+            list = list.filter(c => {
+                const np = computeNextPickup(c);
+                const s = getStatusInfo(np);
+                return s.label.toLowerCase() === filterStatus;
+            });
+        }
+        // Search
+        if (searchTerm) {
+            const q = searchTerm.toLowerCase();
+            list = list.filter(c =>
+                (c.hospitalNo || '').toLowerCase().includes(q) ||
+                (c.fullName || '').toLowerCase().includes(q) ||
+                (c.phone || '').toLowerCase().includes(q) ||
+                (c.location || '').toLowerCase().includes(q)
+            );
+        }
+        // Sort
+        list.sort((a, b) => {
+            const na = (a.fullName || '').toLowerCase();
+            const nb = (b.fullName || '').toLowerCase();
+            const ha = (a.hospitalNo || '').toLowerCase();
+            const hb = (b.hospitalNo || '').toLowerCase();
+            switch (sortKey) {
+                case 'nextPickup_asc': {
+                    const da = computeNextPickup(a); const db = computeNextPickup(b);
+                    return (da ? da.getTime() : Infinity) - (db ? db.getTime() : Infinity);
+                }
+                case 'nextPickup_desc': {
+                    const da = computeNextPickup(a); const db = computeNextPickup(b);
+                    return (db ? db.getTime() : -Infinity) - (da ? da.getTime() : -Infinity);
+                }
+                case 'name_asc': return na.localeCompare(nb);
+                case 'name_desc': return nb.localeCompare(na);
+                case 'hospital_asc': return ha.localeCompare(hb);
+                case 'created_desc': return new Date(b.createdAt||0) - new Date(a.createdAt||0);
+                default: return 0;
+            }
+        });
+        return list;
+    }
+
+    /* ---------- Render Dashboard ---------- */
     function renderDashboard() {
         if (!currentUser) return;
 
@@ -464,30 +688,33 @@ const API = {
             <span class="detail"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> ${escapeHtml(currentUser.facility)}</span>
         `;
 
-        const managerClients = clients.filter(c => String(c.managerId) === String(currentUser.id));
-        totalClientsEl.textContent = managerClients.length;
-
-        let activeCount = 0;
-        managerClients.forEach(c => {
-            const last = c.lastPickupDate ? new Date(c.lastPickupDate) : null;
-            const next = last ? addMonths(last, c.refillMonths || 6) : null;
-            const status = getStatusInfo(next);
-            if (status.label === 'Active') activeCount++;
+        const mine = clients.filter(c => String(c.managerId) === String(currentUser.id));
+        totalClientsEl.textContent = mine.length;
+        let aC = 0, dC = 0, iC = 0;
+        mine.forEach(c => {
+            const s = getStatusInfo(computeNextPickup(c));
+            if (s.label === 'Active') aC++;
+            else if (s.label === 'Defaulted') dC++;
+            else if (s.label === 'IIT') iC++;
         });
-        activeRefillsEl.textContent = activeCount;
+        activeRefillsEl.textContent = aC;
+        defaultedCountEl.textContent = dC;
+        iitCountEl.textContent = iC;
 
-        if (managerClients.length === 0) {
-            tableBody.innerHTML = `<tr class="empty-row"><td colspan="11"><svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg> No clients yet. Click "Add Client".</td></tr>`;
-            clientsCards.innerHTML = `<div style="text-align:center;padding:30px 16px;color:#8a9bb8;font-style:italic;font-size:14px;">No clients yet. Tap "Add Client".</div>`;
+        const list = getFilteredSorted();
+        filterCount.textContent = `(${list.length})`;
+
+        if (list.length === 0) {
+            tableBody.innerHTML = `<tr class="empty-row"><td colspan="11">No clients match the current filter.</td></tr>`;
+            clientsCards.innerHTML = `<div style="text-align:center;padding:30px 16px;color:#8a9bb8;font-style:italic;font-size:14px;">No clients match the current filter.</div>`;
             return;
         }
 
         let tableHtml = '';
         let cardsHtml = '';
-        managerClients.forEach(client => {
-            const lastPickup = client.lastPickupDate ? new Date(client.lastPickupDate) : null;
-            const refillMonths = client.refillMonths || 6;
-            const nextPickup = lastPickup ? addMonths(lastPickup, refillMonths) : null;
+        list.forEach(client => {
+            const nextPickup = computeNextPickup(client);
+            const vlscNext = client.vlscNextCollection ? new Date(client.vlscNextCollection) : computeVlscNext(client);
             const status = getStatusInfo(nextPickup);
 
             tableHtml += `<tr>
@@ -499,30 +726,38 @@ const API = {
                 <td>${escapeHtml(client.location) || '—'}</td>
                 <td>${escapeHtml(client.phone) || '—'}</td>
                 <td>${nextPickup ? formatDate(nextPickup) : '—'}</td>
-                <td>${formatDate(client.vlscNextCollection)}</td>
+                <td>${formatDate(vlscNext)}</td>
                 <td><div class="status-cell"><span class="badge ${status.class}">${status.label}</span>${status.note ? `<span class="status-note">${status.note}</span>` : ''}</div></td>
-                <td><button class="view-btn" onclick="window.viewClient('${client.id}')"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> View</button></td>
+                <td><div class="action-group">
+                    <button class="btn-mini success" onclick="window.markRefilled('${client.id}')" title="Mark as Refilled"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Refill</button>
+                    <button class="btn-mini" onclick="window.viewClient('${client.id}')" title="View Details"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></button>
+                    <button class="btn-mini" onclick="window.editClient('${client.id}')" title="Edit"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+                    <button class="btn-mini danger" onclick="window.deleteClientConfirm('${client.id}')" title="Delete"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+                </div></td>
             </tr>`;
 
             cardsHtml += `<div class="client-card">
                 <div class="card-head">
                     <div>
-                        <div class="name">${escapeHtml(client.fullName) || '<span style="color:#a0b0c8;">Unnamed Client</span>'}</div>
+                        <div class="name">${escapeHtml(client.fullName) || '<span style="color:#a0b0c8;">Unnamed</span>'}</div>
                         <div class="hosp">Hosp: ${escapeHtml(client.hospitalNo)}</div>
                     </div>
                     <span class="badge ${status.class}">${status.label}</span>
                 </div>
                 <div class="card-grid">
-                    <div class="cg-item"><span class="lbl">Age</span><span class="val">${client.age || '—'}</span></div>
-                    <div class="cg-item"><span class="lbl">Weight</span><span class="val">${client.weight ? client.weight+' kg' : '—'}</span></div>
                     <div class="cg-item"><span class="lbl">Next Pickup</span><span class="val">${nextPickup ? formatDate(nextPickup) : '—'}</span></div>
-                    <div class="cg-item"><span class="lbl">VLSC Next</span><span class="val">${formatDate(client.vlscNextCollection)}</span></div>
-                    <div class="cg-item"><span class="lbl">Location</span><span class="val">${escapeHtml(client.location) || '—'}</span></div>
+                    <div class="cg-item"><span class="lbl">VLSC Next</span><span class="val">${formatDate(vlscNext)}</span></div>
                     <div class="cg-item"><span class="lbl">Phone</span><span class="val">${escapeHtml(client.phone) || '—'}</span></div>
+                    <div class="cg-item"><span class="lbl">Location</span><span class="val">${escapeHtml(client.location) || '—'}</span></div>
                 </div>
                 <div class="card-foot">
                     <span class="status-note" style="font-size:11px;">${status.note || ''}</span>
-                    <button class="view-btn" onclick="window.viewClient('${client.id}')"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> View Details</button>
+                    <div class="action-group">
+                        <button class="btn-mini success" onclick="window.markRefilled('${client.id}')"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Refill</button>
+                        <button class="btn-mini" onclick="window.viewClient('${client.id}')">View</button>
+                        <button class="btn-mini" onclick="window.editClient('${client.id}')">Edit</button>
+                        <button class="btn-mini danger" onclick="window.deleteClientConfirm('${client.id}')">Del</button>
+                    </div>
                 </div>
             </div>`;
         });
@@ -530,16 +765,17 @@ const API = {
         clientsCards.innerHTML = cardsHtml;
     }
 
+    /* ---------- View Client ---------- */
     window.viewClient = function(clientId) {
         const client = clients.find(c => String(c.id) === String(clientId));
         if (!client) return showToast('Client not found', 'error');
-        const lastPickup = client.lastPickupDate ? new Date(client.lastPickupDate) : null;
         const refillMonths = client.refillMonths || 6;
-        const nextPickup = lastPickup ? addMonths(lastPickup, refillMonths) : null;
+        const nextPickup = computeNextPickup(client);
+        const vlscNext = client.vlscNextCollection ? new Date(client.vlscNextCollection) : computeVlscNext(client);
         const status = getStatusInfo(nextPickup);
 
         detailContent.innerHTML = `
-            <div class="detail-section-title"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Personal Information</div>
+            <div class="detail-section-title">Personal Information</div>
             <div class="detail-grid">
                 <div class="detail-item"><span class="label">Full Name</span><span class="value ${!client.fullName ? 'empty' : ''}">${client.fullName ? escapeHtml(client.fullName) : 'Not provided'}</span></div>
                 <div class="detail-item"><span class="label">Hospital No.</span><span class="value">${escapeHtml(client.hospitalNo)}</span></div>
@@ -550,21 +786,179 @@ const API = {
                 <div class="detail-item"><span class="label">Address</span><span class="value ${!client.address ? 'empty' : ''}">${client.address ? escapeHtml(client.address) : 'Not provided'}</span></div>
                 <div class="detail-item"><span class="label">Phone</span><span class="value ${!client.phone ? 'empty' : ''}">${client.phone ? escapeHtml(client.phone) : 'Not provided'}</span></div>
             </div>
-            <div class="detail-section-title" style="margin-top:18px;"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>Refill &amp; VLSC Information</div>
+            <div class="detail-section-title" style="margin-top:18px;">Refill &amp; VLSC Information</div>
             <div class="detail-grid">
                 <div class="detail-item"><span class="label">Last Pickup</span><span class="value ${!client.lastPickupDate ? 'empty' : ''}">${client.lastPickupDate ? formatDate(client.lastPickupDate) : 'Not provided'}</span></div>
                 <div class="detail-item"><span class="label">Refill Period</span><span class="value">${refillMonths} months</span></div>
-                <div class="detail-item"><span class="label">Next Pickup</span><span class="value">${nextPickup ? formatDate(nextPickup) : '—'}</span></div>
+                <div class="detail-item"><span class="label">Next Pickup (EDATE)</span><span class="value">${nextPickup ? formatDate(nextPickup) : '—'}</span></div>
                 <div class="detail-item"><span class="label">VLSC Last</span><span class="value ${!client.vlscLastCollection ? 'empty' : ''}">${client.vlscLastCollection ? formatDate(client.vlscLastCollection) : 'Not provided'}</span></div>
-                <div class="detail-item"><span class="label">VLSC Next</span><span class="value ${!client.vlscNextCollection ? 'empty' : ''}">${client.vlscNextCollection ? formatDate(client.vlscNextCollection) : 'Not provided'}</span></div>
+                <div class="detail-item"><span class="label">VLSC Next (EDATE)</span><span class="value ${!vlscNext ? 'empty' : ''}">${vlscNext ? formatDate(vlscNext) : 'Not provided'}</span></div>
                 <div class="detail-item"><span class="label">Status</span><span class="value"><span class="badge ${status.class}" style="font-size:12px;">${status.label}</span>${status.note ? `<span style="margin-left:8px;font-size:12px;color:#b45309;">${status.note}</span>` : ''}</span></div>
             </div>
         `;
         detailModal.classList.add('active');
     };
 
+    /* ---------- Edit Client ---------- */
+    window.editClient = function(clientId) {
+        const client = clients.find(c => String(c.id) === String(clientId));
+        if (!client) return showToast('Client not found', 'error');
+        $('clientModalTitle').textContent = 'Edit Client';
+        $('editingClientId').value = client.id;
+        $('fullName').value = client.fullName || '';
+        $('hospitalNo').value = client.hospitalNo || '';
+        $('age').value = client.age || '';
+        $('weight').value = client.weight || '';
+        $('height').value = client.height || '';
+        $('location').value = client.location || '';
+        $('address').value = client.address || '';
+        $('phone').value = client.phone || '';
+        $('lastPickupDate').value = client.lastPickupDate || '';
+        $('refillMonths').value = String(client.refillMonths || 6);
+        vlscLastInput.value = client.vlscLastCollection || '';
+        vlscNextInput.value = client.vlscNextCollection || '';
+        addClientModal.classList.add('active');
+    };
+
+    /* ---------- Delete Client ---------- */
+    window.deleteClientConfirm = async function(clientId) {
+        const client = clients.find(c => String(c.id) === String(clientId));
+        if (!client) return;
+        if (!confirm(`Delete client "${client.fullName || client.hospitalNo}"? This cannot be undone.`)) return;
+        try {
+            await API.deleteClient(clientId);
+            clients = clients.filter(c => String(c.id) !== String(clientId));
+            renderDashboard();
+            showToast('Client deleted', 'success');
+        } catch (e) {
+            showToast(e.message || 'Delete failed', 'error');
+        }
+    };
+
+    /* ---------- Mark as Refilled ---------- */
+    window.markRefilled = async function(clientId) {
+        const client = clients.find(c => String(c.id) === String(clientId));
+        if (!client) return;
+        const today = new Date().toISOString().slice(0,10);
+        if (!confirm(`Mark "${client.fullName || client.hospitalNo}" as refilled today (${formatDate(today)})?\n\nThis will:\n• Set Last Pickup = today\n• Recalculate Next Pickup (EDATE)\n• Update VLSC last collection = today`)) return;
+
+        const updated = {
+            ...client,
+            lastPickupDate: today,
+            vlscLastCollection: today
+        };
+        // Recompute VLSC next
+        const vlscLast = new Date(today);
+        const monthsToAdd = (client.refillMonths === 3) ? 3 : 12;
+        const nextVlsc = addMonths(vlscLast, monthsToAdd);
+        if (nextVlsc) updated.vlscNextCollection = nextVlsc.toISOString().slice(0,10);
+
+        try {
+            await API.updateClient(updated);
+            const idx = clients.findIndex(c => String(c.id) === String(clientId));
+            clients[idx] = updated;
+            renderDashboard();
+            showToast('Marked as refilled — next pickup recalculated', 'success');
+        } catch (e) {
+            showToast(e.message || 'Update failed', 'error');
+        }
+    };
+
+    /* ---------- Due Modals (grouped by month, EDATE) ---------- */
+    function openDueModal(kind) {
+        // kind = 'refill' or 'vlsc'
+        const mine = clients.filter(c => String(c.managerId) === String(currentUser.id));
+        const groups = {}; // key -> { label, date, items: [] }
+        const today = new Date(); today.setHours(0,0,0,0);
+
+        mine.forEach(c => {
+            let dueDate = null;
+            let meta = '';
+            if (kind === 'refill') {
+                dueDate = computeNextPickup(c);
+                meta = `Refill: ${c.refillMonths || 6} mo · Last: ${c.lastPickupDate ? formatDate(c.lastPickupDate) : '—'}`;
+            } else {
+                dueDate = c.vlscNextCollection ? new Date(c.vlscNextCollection) : computeVlscNext(c);
+                meta = `VLSC Last: ${c.vlscLastCollection ? formatDate(c.vlscLastCollection) : '—'}`;
+            }
+            if (!dueDate) return;
+            const key = monthKey(dueDate);
+            if (!groups[key]) groups[key] = { date: new Date(dueDate.getFullYear(), dueDate.getMonth(), 1), items: [] };
+            groups[key].items.push({ client: c, dueDate, meta });
+        });
+
+        // Sort groups chronologically
+        const sortedGroups = Object.values(groups).sort((a,b) => a.date - b.date);
+        sortedGroups.forEach(g => g.items.sort((a,b) => a.dueDate - b.dueDate));
+
+        const total = sortedGroups.reduce((sum, g) => sum + g.items.length, 0);
+        let html = '';
+        if (total === 0) {
+            html = `<div class="empty-state">No clients found for this list.</div>`;
+        } else {
+            html = `<div style="margin-bottom:14px;font-size:13.5px;color:#5b6e8c;">Total: <strong style="color:#0b1e33;">${total}</strong> client${total!==1?'s':''} across <strong>${sortedGroups.length}</strong> month${sortedGroups.length!==1?'s':''}</div>`;
+            sortedGroups.forEach(g => {
+                const overdue = g.items.filter(i => i.dueDate < today).length;
+                html += `<div class="month-group">
+                    <div class="month-group-head">
+                        <span>${monthLabel(g.date)}</span>
+                        <span class="count">${g.items.length} client${g.items.length!==1?'s':''}${overdue ? ` · ${overdue} overdue` : ''}</span>
+                    </div>
+                    <div class="month-group-body">`;
+                g.items.forEach(i => {
+                    const isOverdue = i.dueDate < today;
+                    const diffDays = Math.floor((today - i.dueDate) / 86400000);
+                    const dateColor = isOverdue ? '#b91c1c' : '#1e3c72';
+                    const badgeClass = isOverdue ? 'badge-iit' : 'badge-active';
+                    html += `<div class="due-item">
+                        <div class="info">
+                            <div class="name">${escapeHtml(i.client.fullName) || '<span style="color:#a0b0c8;">Unnamed</span>'} <span style="font-size:12px;color:#7a8ba8;font-weight:500;">· ${escapeHtml(i.client.hospitalNo)}</span></div>
+                            <div class="meta">${escapeHtml(i.meta)} · ${escapeHtml(i.client.phone || '—')}</div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                            <span class="date" style="color:${dateColor}">${formatDate(i.dueDate)}</span>
+                            ${isOverdue ? `<span class="badge ${badgeClass}" style="min-width:auto;font-size:10.5px;">${diffDays}d overdue</span>` : ''}
+                        </div>
+                    </div>`;
+                });
+                html += `</div></div>`;
+            });
+        }
+
+        if (kind === 'refill') {
+            $('refillDueContent').innerHTML = html;
+            refillDueModal.classList.add('active');
+        } else {
+            $('vlscDueContent').innerHTML = html;
+            vlscDueModal.classList.add('active');
+        }
+    }
+
+    $('btnRefillDue').addEventListener('click', () => openDueModal('refill'));
+    $('btnVlscDue').addEventListener('click', () => openDueModal('vlsc'));
+    $('closeRefillDueBtn').addEventListener('click', () => refillDueModal.classList.remove('active'));
+    $('closeRefillDueFooterBtn').addEventListener('click', () => refillDueModal.classList.remove('active'));
+    $('closeVlscDueBtn').addEventListener('click', () => vlscDueModal.classList.remove('active'));
+    $('closeVlscDueFooterBtn').addEventListener('click', () => vlscDueModal.classList.remove('active'));
+    refillDueModal.addEventListener('click', e => { if (e.target === refillDueModal) refillDueModal.classList.remove('active'); });
+    vlscDueModal.addEventListener('click', e => { if (e.target === vlscDueModal) vlscDueModal.classList.remove('active'); });
+
+    /* ---------- VLSC auto-calc ---------- */
+    function updateVlscNext() {
+        const lastVlsc = vlscLastInput.value;
+        if (!lastVlsc) { vlscNextInput.value = ''; return; }
+        const monthsToAdd = (refillMonthsSelect.value === '3') ? 3 : 12;
+        const next = addMonths(new Date(lastVlsc), monthsToAdd);
+        if (next) vlscNextInput.value = next.toISOString().slice(0,10);
+    }
+    vlscLastInput.addEventListener('change', updateVlscNext);
+    refillMonthsSelect.addEventListener('change', updateVlscNext);
+
+    /* ---------- Modals ---------- */
     function openModal() {
         clientForm.reset();
+        $('editingClientId').value = '';
+        $('clientModalTitle').textContent = 'Add New Client';
         $('lastPickupDate').valueAsDate = new Date();
         vlscNextInput.value = '';
         vlscLastInput.value = '';
@@ -581,14 +975,26 @@ const API = {
     $('closeDetailBtn').addEventListener('click', closeDetailModal);
     detailModal.addEventListener('click', e => { if (e.target === detailModal) closeDetailModal(); });
 
+    /* ---------- Filters & Sort ---------- */
+    $('filterPills').addEventListener('click', e => {
+        const btn = e.target.closest('button[data-filter]');
+        if (!btn) return;
+        document.querySelectorAll('#filterPills button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterStatus = btn.dataset.filter;
+        renderDashboard();
+    });
+    $('sortSelect').addEventListener('change', e => { sortKey = e.target.value; renderDashboard(); });
+    $('searchBox').addEventListener('input', e => { searchTerm = e.target.value.trim(); renderDashboard(); });
+
+    /* ---------- Auth ---------- */
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         loginError.textContent = '';
         const input = $('loginEmailOrPhone').value.trim();
         const password = $('loginPassword').value;
         if (!input || !password) { loginError.textContent = 'Please enter email/phone and password.'; return; }
-        const btn = $('loginBtn');
-        btn.disabled = true;
+        const btn = $('loginBtn'); btn.disabled = true;
         try {
             const user = await API.login(input, password);
             currentUser = user;
@@ -600,9 +1006,7 @@ const API = {
             showToast('Welcome back, ' + user.fullName.split(' ')[0], 'success');
         } catch (err) {
             loginError.textContent = err.message || 'Login failed.';
-        } finally {
-            btn.disabled = false;
-        }
+        } finally { btn.disabled = false; }
     });
 
     signupForm.addEventListener('submit', async function(e) {
@@ -621,8 +1025,7 @@ const API = {
         if (payload.password.length < 6) {
             signupError.textContent = 'Password must be at least 6 characters.'; return;
         }
-        const btn = $('signupBtn');
-        btn.disabled = true;
+        const btn = $('signupBtn'); btn.disabled = true;
         try {
             const user = await API.signup(payload);
             currentUser = user;
@@ -634,9 +1037,7 @@ const API = {
             showToast('Account created successfully', 'success');
         } catch (err) {
             signupError.textContent = err.message || 'Signup failed.';
-        } finally {
-            btn.disabled = false;
-        }
+        } finally { btn.disabled = false; }
     });
 
     $('showSignup').addEventListener('click', e => {
@@ -654,19 +1055,19 @@ const API = {
 
     $('logoutBtn').addEventListener('click', () => {
         API.logout();
-        currentUser = null;
-        clients = [];
+        currentUser = null; clients = [];
         dashboardPage.classList.remove('active');
         loginPage.classList.remove('hidden');
         signupPage.classList.add('hidden');
-        loginForm.reset();
-        signupForm.reset();
+        loginForm.reset(); signupForm.reset();
         managerInfo.innerHTML = '';
     });
 
+    /* ---------- Add / Update Client ---------- */
     clientForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         if (!currentUser) return;
+        const editingId = $('editingClientId').value;
         const hospitalNo = $('hospitalNo').value.trim();
         if (!hospitalNo) { showToast('Hospital Number is required', 'error'); return; }
         const lastPickupDate = $('lastPickupDate').value;
@@ -681,7 +1082,7 @@ const API = {
             if (next) vlscNext = next.toISOString().slice(0,10);
         }
 
-        const newClient = {
+        const payload = {
             fullName: $('fullName').value.trim(),
             hospitalNo,
             age: $('age').value ? Number($('age').value) : null,
@@ -696,26 +1097,186 @@ const API = {
             vlscNextCollection: vlscNext
         };
 
-        const btn = $('saveClientBtn');
-        btn.disabled = true;
+        const btn = $('saveClientBtn'); btn.disabled = true;
         try {
-            const saved = await API.addClient(newClient);
-            clients.push(saved);
+            if (editingId) {
+                payload.id = editingId;
+                const saved = await API.updateClient(payload);
+                const idx = clients.findIndex(c => String(c.id) === String(editingId));
+                clients[idx] = saved;
+                showToast('Client updated', 'success');
+            } else {
+                const saved = await API.addClient(payload);
+                clients.push(saved);
+                showToast('Client added successfully', 'success');
+            }
             renderDashboard();
             closeModal();
-            showToast('Client added successfully', 'success');
         } catch (err) {
-            showToast(err.message || 'Failed to save client', 'error');
-        } finally {
-            btn.disabled = false;
+            showToast(err.message || 'Save failed', 'error');
+        } finally { btn.disabled = false; }
+    });
+
+    /* ---------- EXPORT to CSV (opens in Excel) ---------- */
+    $('btnExport').addEventListener('click', () => {
+        const mine = clients.filter(c => String(c.managerId) === String(currentUser.id));
+        if (mine.length === 0) { showToast('No clients to export', 'error'); return; }
+        const headers = [
+            'managerEmail','managerPhone','hospitalNo','fullName','age','weight','height',
+            'location','address','phone','lastPickupDate','refillMonths',
+            'vlscLastCollection','vlscNextCollection','nextPickup','status'
+        ];
+        const rows = mine.map(c => {
+            const np = computeNextPickup(c);
+            const s = getStatusInfo(np);
+            const vNext = c.vlscNextCollection || (computeVlscNext(c) ? computeVlscNext(c).toISOString().slice(0,10) : '');
+            return [
+                currentUser.email || '',
+                currentUser.phone || '',
+                c.hospitalNo || '',
+                c.fullName || '',
+                c.age || '',
+                c.weight || '',
+                c.height || '',
+                c.location || '',
+                c.address || '',
+                c.phone || '',
+                c.lastPickupDate || '',
+                c.refillMonths || '',
+                c.vlscLastCollection || '',
+                vNext,
+                np ? np.toISOString().slice(0,10) : '',
+                s.label
+            ];
+        });
+        const csv = [headers, ...rows].map(r => r.map(cell => {
+            const s = String(cell == null ? '' : cell);
+            return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+        }).join(',')).join('\r\n');
+        const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `plhiv_clients_${new Date().toISOString().slice(0,10)}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('Exported ' + mine.length + ' clients', 'success');
+    });
+
+    /* ---------- IMPORT from Excel/CSV ---------- */
+    function parseCSV(text) {
+        const rows = [];
+        let cur = [], cell = '', inQuotes = false;
+        for (let i = 0; i < text.length; i++) {
+            const ch = text[i];
+            if (inQuotes) {
+                if (ch === '"') {
+                    if (text[i+1] === '"') { cell += '"'; i++; }
+                    else inQuotes = false;
+                } else cell += ch;
+            } else {
+                if (ch === '"') inQuotes = true;
+                else if (ch === ',') { cur.push(cell); cell = ''; }
+                else if (ch === '\r') { /* skip */ }
+                else if (ch === '\n') { cur.push(cell); rows.push(cur); cur = []; cell = ''; }
+                else cell += ch;
+            }
+        }
+        if (cell.length > 0 || cur.length > 0) { cur.push(cell); rows.push(cur); }
+        return rows.filter(r => r.some(c => String(c).trim() !== ''));
+    }
+
+    $('btnImport').addEventListener('click', () => {
+        $('importResult').innerHTML = '';
+        $('importFile').value = '';
+        importModal.classList.add('active');
+    });
+    $('closeImportBtn').addEventListener('click', () => importModal.classList.remove('active'));
+    $('closeImportFooterBtn').addEventListener('click', () => importModal.classList.remove('active'));
+    importModal.addEventListener('click', e => { if (e.target === importModal) importModal.classList.remove('active'); });
+
+    $('importFile').addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const resultEl = $('importResult');
+        resultEl.innerHTML = `<div class="row">Reading ${escapeHtml(file.name)}...</div>`;
+        try {
+            const text = await file.text();
+            const rows = parseCSV(text);
+            if (rows.length < 2) { resultEl.innerHTML = `<div class="row err">File is empty or only has a header row.</div>`; return; }
+            const headers = rows[0].map(h => String(h).trim());
+            const required = ['hospitalNo'];
+            const missing = required.filter(r => !headers.includes(r));
+            if (missing.length) {
+                resultEl.innerHTML = `<div class="row err">Missing required column(s): ${missing.join(', ')}</div>`;
+                return;
+            }
+            const get = (row, key) => {
+                const idx = headers.indexOf(key);
+                return idx === -1 ? '' : String(row[idx] || '').trim();
+            };
+
+            let imported = 0, skipped = 0, errors = 0;
+            const log = [];
+            const mine = [];
+
+            rows.slice(1).forEach((row, i) => {
+                const managerEmail = get(row, 'managerEmail').toLowerCase();
+                const managerPhone = get(row, 'managerPhone');
+                const myEmail = (currentUser.email || '').toLowerCase();
+                const myPhone = (currentUser.phone || '');
+                if (managerEmail && managerEmail !== myEmail) { skipped++; log.push({ t: 'skip', m: `Row ${i+2}: different manager (${managerEmail})` }); return; }
+                if (managerPhone && managerPhone !== myPhone) { skipped++; log.push({ t: 'skip', m: `Row ${i+2}: different manager phone (${managerPhone})` }); return; }
+                const hospitalNo = get(row, 'hospitalNo');
+                if (!hospitalNo) { errors++; log.push({ t: 'err', m: `Row ${i+2}: missing hospitalNo` }); return; }
+                const refillMonths = Number(get(row, 'refillMonths')) || 6;
+                let vlscNext = get(row, 'vlscNextCollection');
+                if (!vlscNext && get(row, 'vlscLastCollection')) {
+                    const n = addMonths(new Date(get(row, 'vlscLastCollection')), refillMonths === 3 ? 3 : 12);
+                    if (n) vlscNext = n.toISOString().slice(0,10);
+                }
+                mine.push({
+                    hospitalNo,
+                    fullName: get(row, 'fullName'),
+                    age: get(row, 'age') ? Number(get(row, 'age')) : null,
+                    weight: get(row, 'weight') ? Number(get(row, 'weight')) : null,
+                    height: get(row, 'height') ? Number(get(row, 'height')) : null,
+                    location: get(row, 'location'),
+                    address: get(row, 'address'),
+                    phone: get(row, 'phone'),
+                    lastPickupDate: get(row, 'lastPickupDate') || null,
+                    refillMonths,
+                    vlscLastCollection: get(row, 'vlscLastCollection') || null,
+                    vlscNextCollection: vlscNext || null
+                });
+            });
+
+            if (mine.length === 0) {
+                resultEl.innerHTML = `<div class="row err">No rows matched your account (${escapeHtml(currentUser.email)} / ${escapeHtml(currentUser.phone)}).</div>` +
+                    log.map(l => `<div class="row ${l.t}">${escapeHtml(l.m)}</div>`).join('');
+                return;
+            }
+
+            const inserted = await API.bulkImport(mine, currentUser.id);
+            clients = clients.concat(inserted);
+            renderDashboard();
+
+            resultEl.innerHTML = `
+                <div class="row ok"><strong>✔ Imported ${inserted.length} client${inserted.length!==1?'s':''}</strong></div>
+                ${skipped ? `<div class="row skip">Skipped ${skipped} (not your clients)</div>` : ''}
+                ${errors ? `<div class="row err">Errors ${errors}</div>` : ''}
+            `;
+            showToast(`Imported ${inserted.length} clients`, 'success');
+        } catch (err) {
+            resultEl.innerHTML = `<div class="row err">Import failed: ${escapeHtml(err.message)}</div>`;
         }
     });
 
+    /* ---------- Boot ---------- */
     async function boot() {
-        // Warn if credentials not configured
-        if (JSONBIN_MASTER_KEY.includes('PASTE') ||
-            JSONBIN_USERS_BIN.includes('PASTE') ||
-            JSONBIN_CLIENTS_BIN.includes('PASTE')) {
+        if (JSONBIN_MASTER_KEY.includes('PASTE') || JSONBIN_USERS_BIN.includes('PASTE') || JSONBIN_CLIENTS_BIN.includes('PASTE')) {
             loginError.textContent = '⚠️ Configure your JSONBin credentials at the top of the <script> tag.';
         }
         try {
@@ -729,9 +1290,7 @@ const API = {
                 renderDashboard();
                 return;
             }
-        } catch (e) {
-            console.warn('Auto-login failed:', e);
-        }
+        } catch (e) { console.warn('Auto-login failed:', e); }
         loginPage.classList.remove('hidden');
         signupPage.classList.add('hidden');
         dashboardPage.classList.remove('active');
