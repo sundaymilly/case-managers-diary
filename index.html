@@ -2,25 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#1e3c72">
     <title>PLHIV Case Manager · Diary Book</title>
-    <!-- Google Fonts Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
+
+        html { font-size: 16px; }
 
         body {
             background: #f4f7fc;
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             padding: 16px;
+            overflow-x: hidden;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 8px; align-items: flex-start; }
         }
 
         /* ---------- SHARED ---------- */
@@ -30,180 +39,135 @@
             background: #1e3c72;
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 12px 22px;
             border-radius: 40px;
             font-weight: 600;
-            font-size: 15px;
+            font-size: 14.5px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.15s;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            white-space: nowrap;
         }
 
-        .btn-primary:hover {
-            background: #0f2a4f;
-            transform: scale(1.01);
-        }
+        .btn-primary:hover { background: #0f2a4f; }
+        .btn-primary:active { transform: scale(0.98); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
 
         .btn-primary svg, .btn-outline svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-            flex-shrink: 0;
+            width: 17px; height: 17px; fill: currentColor; flex-shrink: 0;
         }
 
         .btn-outline {
             background: transparent;
             border: 1.5px solid #e2e8f0;
-            padding: 10px 20px;
+            padding: 10px 18px;
             border-radius: 40px;
             font-weight: 500;
             color: #5b6e8c;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.15s;
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            font-size: 14px;
+            white-space: nowrap;
         }
 
-        .btn-outline:hover {
-            background: #f1f5f9;
-            border-color: #b9c7db;
-            color: #0b1e33;
-        }
+        .btn-outline:hover { background: #f1f5f9; border-color: #b9c7db; color: #0b1e33; }
 
-        .btn-icon {
-            background: #f1f5f9;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
-            color: #5b6e8c;
-        }
-
-        .btn-icon:hover {
-            background: #e2e8f0;
-            color: #0b1e33;
-        }
-
-        .btn-icon svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
-        /* ---------- AUTH PAGES ---------- */
+        /* ---------- AUTH ---------- */
         .auth-container {
             background: white;
-            max-width: 480px;
+            max-width: 440px;
             width: 100%;
-            padding: 40px 32px;
-            border-radius: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            padding: 36px 28px;
+            border-radius: 28px;
+            box-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.2);
+            margin: auto;
         }
 
-        .auth-header {
-            text-align: center;
-            margin-bottom: 28px;
+        @media (max-width: 480px) {
+            .auth-container { padding: 28px 20px; border-radius: 22px; }
         }
+
+        .auth-header { text-align: center; margin-bottom: 26px; }
 
         .auth-header .icon-circle {
             background: #1e3c72;
-            width: 70px;
-            height: 70px;
+            width: 64px; height: 64px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 14px;
         }
 
-        .auth-header .icon-circle svg {
-            width: 36px;
-            height: 36px;
-            fill: white;
-        }
+        .auth-header .icon-circle svg { width: 32px; height: 32px; fill: white; }
 
-        .auth-header h2 {
-            font-size: 26px;
-            font-weight: 700;
-            color: #0b1e33;
-        }
-
-        .auth-header p {
-            color: #5b6e8c;
-            font-size: 15px;
-            margin-top: 4px;
-        }
+        .auth-header h2 { font-size: 24px; font-weight: 700; color: #0b1e33; }
+        .auth-header p { color: #5b6e8c; font-size: 14px; margin-top: 4px; }
 
         .auth-form .input-group {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             position: relative;
         }
 
         .auth-form .input-group svg {
             position: absolute;
-            left: 16px;
-            top: 50%;
+            left: 15px; top: 50%;
             transform: translateY(-50%);
-            width: 18px;
-            height: 18px;
+            width: 17px; height: 17px;
             fill: #7a8ba8;
+            pointer-events: none;
         }
 
-        .auth-form input, .auth-form select {
+        .auth-form input {
             width: 100%;
-            padding: 14px 14px 14px 48px;
+            padding: 13px 14px 13px 44px;
             border: 1.5px solid #e2e8f0;
-            border-radius: 16px;
+            border-radius: 14px;
             font-size: 15px;
             background: #f9fbfe;
-            transition: 0.2s;
+            transition: 0.15s;
             outline: none;
         }
 
-        .auth-form input:focus, .auth-form select:focus {
+        .auth-form input:focus {
             border-color: #1e3c72;
             background: white;
-            box-shadow: 0 0 0 4px rgba(30, 60, 114, 0.08);
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.08);
         }
 
         .auth-form .btn-primary {
             width: 100%;
-            padding: 14px;
-            border-radius: 16px;
-            font-size: 16px;
-            margin-top: 6px;
+            padding: 13px;
+            border-radius: 14px;
+            font-size: 15px;
+            margin-top: 4px;
         }
 
         .auth-footer {
             text-align: center;
-            margin-top: 22px;
+            margin-top: 18px;
             color: #7a8ba8;
-            font-size: 14px;
+            font-size: 13.5px;
         }
 
-        .auth-footer a {
-            color: #1e3c72;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
+        .auth-footer a { color: #1e3c72; font-weight: 600; text-decoration: none; cursor: pointer; }
         .auth-footer a:hover { text-decoration: underline; }
 
-        .error-msg {
-            color: #b91c1c;
-            font-size: 13px;
+        .error-msg { color: #b91c1c; font-size: 12.5px; margin-top: 4px; display: block; }
+
+        .info-msg {
+            color: #0369a1;
+            font-size: 12.5px;
             margin-top: 4px;
             display: block;
+            background: #e0f2fe;
+            padding: 8px 12px;
+            border-radius: 10px;
+            border-left: 3px solid #0369a1;
         }
 
         /* ---------- DASHBOARD ---------- */
@@ -218,10 +182,14 @@
 
         .dashboard-card {
             background: white;
-            border-radius: 32px;
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
-            padding: 28px 30px;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
+            padding: 24px 26px;
             width: 100%;
+        }
+
+        @media (max-width: 640px) {
+            .dashboard-card { padding: 16px 14px; border-radius: 18px; }
         }
 
         .dash-header {
@@ -229,108 +197,105 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 22px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .dash-header h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: #0b1e33;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .dash-header h1 svg {
-            width: 28px;
-            height: 28px;
-            fill: #1e3c72;
+        .dash-header h1 svg { width: 26px; height: 26px; fill: #1e3c72; }
+
+        @media (max-width: 640px) {
+            .dash-header h1 { font-size: 18px; }
+            .dash-header h1 svg { width: 22px; height: 22px; }
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .manager-info {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
             flex-wrap: wrap;
             background: #eef2f9;
-            padding: 12px 22px;
+            padding: 10px 18px;
             border-radius: 40px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .manager-info { display: none; }
         }
 
         .manager-info .detail {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 14px;
+            gap: 5px;
             color: #1e3c72;
             font-weight: 500;
         }
 
-        .manager-info .detail svg {
-            width: 16px;
-            height: 16px;
-            fill: #5b6e8c;
-        }
+        .manager-info .detail svg { width: 14px; height: 14px; fill: #5b6e8c; }
 
         .stats-row {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+            margin-bottom: 22px;
         }
 
         .stat-card {
             background: #f2f6fd;
-            padding: 18px 28px;
-            border-radius: 20px;
+            padding: 14px 20px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
-            gap: 16px;
-            min-width: 180px;
+            gap: 14px;
         }
 
         .stat-card .stat-icon {
             background: white;
-            width: 52px;
-            height: 52px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 46px; height: 46px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
         }
 
-        .stat-card .stat-icon svg {
-            width: 28px;
-            height: 28px;
-            fill: #1e3c72;
-        }
+        .stat-card .stat-icon svg { width: 24px; height: 24px; fill: #1e3c72; }
 
         .stat-card .info h4 {
-            font-size: 13px;
+            font-size: 11px;
             color: #5b6e8c;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.3px;
         }
 
-        .stat-card .info span {
-            font-size: 26px;
-            font-weight: 700;
-            color: #0b1e33;
-        }
+        .stat-card .info span { font-size: 22px; font-weight: 700; color: #0b1e33; }
 
         .table-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 10px;
+            margin-bottom: 14px;
         }
 
         .table-actions h3 {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 600;
             color: #0b1e33;
             display: flex;
@@ -338,42 +303,121 @@
             gap: 8px;
         }
 
-        .table-actions h3 svg {
-            width: 22px;
-            height: 22px;
-            fill: #1e3c72;
+        .table-actions h3 svg { width: 20px; height: 20px; fill: #1e3c72; }
+
+        /* ---------- CARD VIEW (mobile) ---------- */
+        .clients-cards {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        /* Table */
+        @media (max-width: 900px) {
+            .table-responsive { display: none; }
+            .clients-cards { display: flex; }
+        }
+
+        .client-card {
+            background: white;
+            border: 1.5px solid #eef2f9;
+            border-radius: 16px;
+            padding: 14px 16px;
+            transition: 0.15s;
+        }
+
+        .client-card:hover { border-color: #dbe4f0; background: #fafdff; }
+
+        .client-card .card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .client-card .card-head .name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0b1e33;
+        }
+
+        .client-card .card-head .hosp {
+            font-size: 12px;
+            color: #7a8ba8;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .client-card .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px 12px;
+            font-size: 12.5px;
+            color: #3f5370;
+            margin-bottom: 10px;
+        }
+
+        .client-card .card-grid .cg-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .client-card .card-grid .cg-item .lbl {
+            font-size: 10.5px;
+            color: #7a8ba8;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            font-weight: 600;
+        }
+
+        .client-card .card-grid .cg-item .val {
+            font-weight: 500;
+            color: #1f2e46;
+            margin-top: 1px;
+        }
+
+        .client-card .card-foot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        /* ---------- TABLE (desktop) ---------- */
         .table-responsive {
             overflow-x: auto;
-            border-radius: 20px;
+            border-radius: 18px;
             border: 1px solid #eef2f9;
             background: white;
+            -webkit-overflow-scrolling: touch;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13.5px;
-            min-width: 1400px;
+            font-size: 13px;
+            min-width: 1200px;
         }
 
         th {
             background: #f2f6fd;
             color: #1e3c72;
             font-weight: 600;
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.3px;
-            padding: 14px 10px;
+            padding: 13px 10px;
             text-align: left;
             border-bottom: 1.5px solid #dbe4f0;
             white-space: nowrap;
+            position: sticky;
+            top: 0;
         }
 
         td {
-            padding: 12px 10px;
+            padding: 11px 10px;
             border-bottom: 1px solid #edf2f9;
             color: #1f2e46;
             vertical-align: middle;
@@ -384,71 +428,74 @@
         tr:hover td { background: #fafdff; }
 
         .badge {
-            padding: 4px 10px;
+            padding: 3px 9px;
             border-radius: 40px;
             font-weight: 600;
-            font-size: 11.5px;
+            font-size: 11px;
             display: inline-block;
             text-align: center;
-            min-width: 70px;
+            min-width: 66px;
         }
 
         .badge-active { background: #e3f5e9; color: #0f6b3e; }
         .badge-defaulted { background: #fff1d6; color: #a16207; }
         .badge-iit { background: #fee2e2; color: #b91c1c; }
-        .badge-urgent { background: #fde8e8; color: #b91c1c; border: 1px solid #f5b5b5; animation: pulse 1.8s infinite; }
 
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
-
-        .text-muted { color: #7e8fa8; font-size: 12.5px; }
-        .status-cell { display: flex; flex-direction: column; gap: 3px; }
-        .status-note { font-size: 10.5px; color: #b45309; font-weight: 500; }
+        .text-muted { color: #7e8fa8; font-size: 12px; }
+        .status-cell { display: flex; flex-direction: column; gap: 2px; }
+        .status-note { font-size: 10px; color: #b45309; font-weight: 500; }
 
         .empty-row td {
             text-align: center;
-            padding: 36px 20px;
+            padding: 32px 20px;
             color: #8a9bb8;
             font-style: italic;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .empty-row td svg {
-            width: 20px;
-            height: 20px;
-            fill: #8a9bb8;
-            vertical-align: middle;
-            margin-right: 6px;
+            width: 18px; height: 18px; fill: #8a9bb8;
+            vertical-align: middle; margin-right: 5px;
         }
 
         /* ---------- MODAL ---------- */
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            inset: 0;
             background: rgba(11, 30, 51, 0.5);
             backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px;
+            overflow-y: auto;
         }
 
         .modal-overlay.active { display: flex; }
 
         .modal-content {
             background: white;
-            max-width: 900px;
+            max-width: 880px;
             width: 100%;
-            border-radius: 32px;
-            padding: 32px 34px;
-            max-height: 90vh;
+            border-radius: 24px;
+            padding: 26px 28px;
+            max-height: calc(100vh - 32px);
+            max-height: calc(100dvh - 32px);
             overflow-y: auto;
             box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.35);
-            animation: modalIn 0.25s ease-out;
+            animation: modalIn 0.2s ease-out;
+            margin: auto;
+        }
+
+        @media (max-width: 640px) {
+            .modal-content { padding: 20px 16px; border-radius: 18px; max-height: 92vh; }
+            .modal-overlay { padding: 8px; align-items: flex-end; }
         }
 
         @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.96) translateY(10px); }
+            from { opacity: 0; transform: scale(0.97) translateY(8px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
@@ -456,61 +503,50 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
+            gap: 10px;
         }
 
         .modal-header h2 {
-            font-size: 22px;
+            font-size: 19px;
             font-weight: 700;
             color: #0b1e33;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .modal-header h2 svg {
-            width: 24px;
-            height: 24px;
-            fill: #1e3c72;
-        }
+        .modal-header h2 svg { width: 22px; height: 22px; fill: #1e3c72; }
 
         .modal-close {
             background: #f1f5f9;
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 38px; height: 38px;
             border-radius: 50%;
-            font-size: 20px;
             color: #5b6e8c;
             cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transition: 0.15s;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
         }
 
         .modal-close:hover { background: #e2e8f0; color: #0b1e33; }
-
-        .modal-close svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
+        .modal-close svg { width: 18px; height: 18px; fill: currentColor; }
 
         .modal-form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 16px 18px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px 16px;
         }
 
-        .modal-field {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
+        @media (max-width: 500px) {
+            .modal-form-grid { grid-template-columns: 1fr; gap: 12px; }
         }
+
+        .modal-field { display: flex; flex-direction: column; gap: 4px; }
 
         .modal-field label {
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 600;
             color: #3f5370;
             display: flex;
@@ -518,22 +554,18 @@
             gap: 5px;
         }
 
-        .modal-field label svg {
-            width: 14px;
-            height: 14px;
-            fill: #7a8ba8;
-            flex-shrink: 0;
-        }
+        .modal-field label svg { width: 13px; height: 13px; fill: #7a8ba8; flex-shrink: 0; }
 
         .modal-field input, .modal-field select {
-            padding: 11px 14px;
+            padding: 10px 12px;
             border: 1.5px solid #e2e8f0;
-            border-radius: 14px;
+            border-radius: 12px;
             font-size: 14px;
             background: white;
-            transition: 0.2s;
+            transition: 0.15s;
             outline: none;
             width: 100%;
+            font-family: inherit;
         }
 
         .modal-field input:focus, .modal-field select:focus {
@@ -541,123 +573,152 @@
             box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.08);
         }
 
-        .required-star { color: #d43f3f; font-size: 15px; margin-left: 2px; }
+        .required-star { color: #d43f3f; font-size: 14px; margin-left: 2px; }
 
         .modal-footer {
-            margin-top: 28px;
+            margin-top: 24px;
             display: flex;
             justify-content: flex-end;
-            gap: 14px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        /* ---------- PATIENT DETAIL MODAL ---------- */
+        /* ---------- PATIENT DETAIL ---------- */
         .detail-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 18px 24px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px 18px;
         }
 
-        .detail-item {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
+        .detail-item { display: flex; flex-direction: column; gap: 3px; }
 
         .detail-item .label {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             color: #7a8ba8;
             text-transform: uppercase;
             letter-spacing: 0.3px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            display: flex; align-items: center; gap: 5px;
         }
 
-        .detail-item .label svg {
-            width: 14px;
-            height: 14px;
-            fill: #7a8ba8;
-        }
+        .detail-item .label svg { width: 13px; height: 13px; fill: #7a8ba8; }
 
         .detail-item .value {
-            font-size: 16px;
+            font-size: 14.5px;
             font-weight: 500;
             color: #0b1e33;
             padding: 8px 12px;
             background: #f9fbfe;
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid #eef2f9;
-            min-height: 44px;
+            min-height: 40px;
             display: flex;
             align-items: center;
+            word-break: break-word;
         }
 
-        .detail-item .value.empty {
-            color: #a0b0c8;
-            font-style: italic;
-        }
+        .detail-item .value.empty { color: #a0b0c8; font-style: italic; }
 
         .detail-section-title {
             grid-column: 1 / -1;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             color: #1e3c72;
-            margin-top: 8px;
+            margin-top: 6px;
             padding-bottom: 6px;
             border-bottom: 2px solid #eef2f9;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: flex; align-items: center; gap: 7px;
         }
 
-        .detail-section-title svg {
-            width: 20px;
-            height: 20px;
-            fill: #1e3c72;
-        }
+        .detail-section-title svg { width: 18px; height: 18px; fill: #1e3c72; }
 
         .legend {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 16px;
-            font-size: 12.5px;
+            gap: 14px;
+            margin-top: 14px;
+            font-size: 12px;
             color: #4b5e7a;
         }
 
-        .legend-item { display: flex; align-items: center; gap: 6px; }
-        .legend-color { width: 13px; height: 13px; border-radius: 4px; }
+        .legend-item { display: flex; align-items: center; gap: 5px; }
+        .legend-color { width: 12px; height: 12px; border-radius: 4px; }
         .legend-active { background: #e3f5e9; border: 1px solid #b3dfc5; }
         .legend-defaulted { background: #fff1d6; border: 1px solid #f3d99b; }
         .legend-iit { background: #fee2e2; border: 1px solid #f5b5b5; }
-        .legend-urgent { background: #fde8e8; border: 1px solid #f5b5b5; }
 
-        /* View button in table */
         .view-btn {
             background: #eef2f9;
             border: none;
-            padding: 6px 12px;
+            padding: 6px 11px;
             border-radius: 40px;
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 600;
             color: #1e3c72;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            transition: 0.2s;
+            transition: 0.15s;
         }
 
-        .view-btn:hover {
-            background: #dbe4f0;
+        .view-btn:hover { background: #dbe4f0; }
+        .view-btn svg { width: 13px; height: 13px; fill: currentColor; }
+
+        /* Sync status indicator */
+        .sync-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            color: #5b6e8c;
+            background: #f1f5f9;
+            padding: 5px 11px;
+            border-radius: 40px;
         }
 
-        .view-btn svg {
-            width: 14px;
-            height: 14px;
-            fill: currentColor;
+        .sync-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #94a3b8;
         }
+
+        .sync-dot.online { background: #10b981; animation: pulse-green 2s infinite; }
+        .sync-dot.offline { background: #f59e0b; }
+        .sync-dot.error { background: #ef4444; }
+
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+            50% { box-shadow: 0 0 0 5px rgba(16, 185, 129, 0); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #0b1e33;
+            color: white;
+            padding: 11px 20px;
+            border-radius: 40px;
+            font-size: 13.5px;
+            font-weight: 500;
+            z-index: 2000;
+            transition: 0.3s;
+            box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.4);
+            max-width: calc(100vw - 32px);
+            text-align: center;
+        }
+
+        .toast.show { transform: translateX(-50%) translateY(0); }
+        .toast.success { background: #065f46; }
+        .toast.error { background: #991b1b; }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
 <body>
@@ -674,14 +735,14 @@
     <form class="auth-form" id="loginForm">
         <div class="input-group">
             <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            <input type="text" id="loginEmailOrPhone" placeholder="Email or Phone Number" required>
+            <input type="text" id="loginEmailOrPhone" placeholder="Email or Phone Number" required autocomplete="username">
         </div>
         <div class="input-group">
             <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-            <input type="password" id="loginPassword" placeholder="Password" required>
+            <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password">
         </div>
         <span class="error-msg" id="loginError"></span>
-        <button type="submit" class="btn-primary">
+        <button type="submit" class="btn-primary" id="loginBtn">
             <svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
             Sign In
         </button>
@@ -707,11 +768,11 @@
         </div>
         <div class="input-group">
             <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            <input type="email" id="signupEmail" placeholder="Email Address" required>
+            <input type="email" id="signupEmail" placeholder="Email Address" required autocomplete="email">
         </div>
         <div class="input-group">
             <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-            <input type="tel" id="signupPhone" placeholder="Phone Number" required>
+            <input type="tel" id="signupPhone" placeholder="Phone Number" required autocomplete="tel">
         </div>
         <div class="input-group">
             <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
@@ -719,10 +780,10 @@
         </div>
         <div class="input-group">
             <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-            <input type="password" id="signupPassword" placeholder="Set Password" required minlength="4">
+            <input type="password" id="signupPassword" placeholder="Set Password (min 6 chars)" required minlength="6" autocomplete="new-password">
         </div>
         <span class="error-msg" id="signupError"></span>
-        <button type="submit" class="btn-primary">
+        <button type="submit" class="btn-primary" id="signupBtn">
             <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
             Sign Up
         </button>
@@ -735,16 +796,17 @@
 <!-- ========== DASHBOARD ========== -->
 <div class="dashboard-container" id="dashboardPage">
     <div class="dashboard-card">
-        <!-- Header -->
         <div class="dash-header">
             <h1>
                 <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
                 Case Manager Diary
             </h1>
-            <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
-                <div class="manager-info" id="managerInfo">
-                    <!-- Populated via JS -->
-                </div>
+            <div class="header-actions">
+                <span class="sync-status" id="syncStatus" title="Data sync status">
+                    <span class="sync-dot" id="syncDot"></span>
+                    <span id="syncText">Local</span>
+                </span>
+                <div class="manager-info" id="managerInfo"></div>
                 <button class="btn-outline" id="logoutBtn">
                     <svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
                     Logout
@@ -752,7 +814,6 @@
             </div>
         </div>
 
-        <!-- Stats -->
         <div class="stats-row">
             <div class="stat-card">
                 <div class="stat-icon">
@@ -774,7 +835,6 @@
             </div>
         </div>
 
-        <!-- Table Actions -->
         <div class="table-actions">
             <h3>
                 <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
@@ -786,7 +846,7 @@
             </button>
         </div>
 
-        <!-- Table -->
+        <!-- Desktop Table -->
         <div class="table-responsive">
             <table>
                 <thead>
@@ -804,23 +864,17 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody id="tableBody">
-                    <tr class="empty-row">
-                        <td colspan="11">
-                            <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
-                            No clients yet. Click "Add Client".
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody id="tableBody"></tbody>
             </table>
         </div>
 
-        <!-- Legend -->
+        <!-- Mobile Cards -->
+        <div class="clients-cards" id="clientsCards"></div>
+
         <div class="legend">
             <div class="legend-item"><span class="legend-color legend-active"></span> Active</div>
             <div class="legend-item"><span class="legend-color legend-defaulted"></span> Defaulted (14+ days)</div>
             <div class="legend-item"><span class="legend-color legend-iit"></span> IIT (30+ days)</div>
-            <div class="legend-item"><span class="legend-color legend-urgent"></span> Urgent refill alert</div>
         </div>
     </div>
 </div>
@@ -833,104 +887,68 @@
                 <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
                 Add New Client
             </h2>
-            <button class="modal-close" id="closeModalBtn">
+            <button class="modal-close" id="closeModalBtn" type="button">
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </button>
         </div>
         <form id="clientForm">
             <div class="modal-form-grid">
                 <div class="modal-field">
-                    <label>
-                        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                        Full Name <span class="text-muted">(optional)</span>
-                    </label>
+                    <label><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> Full Name <span class="text-muted">(optional)</span></label>
                     <input type="text" id="fullName" placeholder="e.g. Jane Doe">
                 </div>
                 <div class="modal-field">
-                    <label>
-                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        Hospital No. <span class="required-star">*</span>
-                    </label>
+                    <label><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Hospital No. <span class="required-star">*</span></label>
                     <input type="text" id="hospitalNo" placeholder="e.g. H12345" required>
                 </div>
                 <div class="modal-field">
-                    <label>
-                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-                        Age
-                    </label>
-                    <input type="number" id="age" placeholder="Years" min="0">
+                    <label><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> Age</label>
+                    <input type="number" id="age" placeholder="Years" min="0" max="120">
                 </div>
                 <div class="modal-field">
-                    <label>
-                        <svg viewBox="0 0 24 24"><path d="M12 3L4 9v12h16V9l-8-6zm0 2.5l6 4.5v9H6v-9l6-4.5zM9 17h6v-2H9v2zm0-4h6v-2H9v2zm0-4h6V7H9v2z"/></svg>
-                        Weight (kg)
-                    </label>
+                    <label><svg viewBox="0 0 24 24"><path d="M12 3L4 9v12h16V9l-8-6zm0 2.5l6 4.5v9H6v-9l6-4.5zM9 17h6v-2H9v2zm0-4h6v-2H9v2zm0-4h6V7H9v2z"/></svg> Weight (kg)</label>
                     <input type="number" id="weight" placeholder="kg" step="0.1" min="0">
                 </div>
                 <div class="modal-field">
-                    <label>
-                        <svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.87L12 5.84zM17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 7c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM3 21.5h8v-8H3v8zm2-6h4v4H5v-4z"/></svg>
-                        Height (cm)
-                    </label>
+                    <label><svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.87L12 5.84zM17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 7c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM3 21.5h8v-8H3v8zm2-6h4v4H5v-4z"/></svg> Height (cm)</label>
                     <input type="number" id="height" placeholder="cm" min="0">
                 </div>
                 <div class="modal-field">
-                    <label>
-                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        Location
-                    </label>
+                    <label><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Location</label>
                     <input type="text" id="location" placeholder="e.g. Urban Clinic">
                 </div>
                 <div class="modal-field">
-                    <label>
-                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        Address
-                    </label>
+                    <label><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Address</label>
                     <input type="text" id="address" placeholder="Street, City">
                 </div>
                 <div class="modal-field">
-                    <label>
-                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                        Phone
-                    </label>
+                    <label><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> Phone</label>
                     <input type="text" id="phone" placeholder="+123 456 7890">
                 </div>
                 <div class="modal-field">
-                    <label>
-                        <svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
-                        Last Pickup Date
-                    </label>
-                    <input type="date" id="lastPickupDate">
+                    <label><svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg> Last Pickup Date</label>
+                    <input type="date" id="lastPickupDate" required>
                 </div>
                 <div class="modal-field">
-                    <label>
-                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-                        Refill Months
-                    </label>
+                    <label><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> Refill Months</label>
                     <select id="refillMonths">
                         <option value="3">3 months (new client)</option>
                         <option value="6" selected>6 months (stable)</option>
                     </select>
                 </div>
                 <div class="modal-field">
-                    <label>
-                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
-                        VLSC Last Collection
-                    </label>
+                    <label><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> VLSC Last Collection</label>
                     <input type="date" id="vlscLastCollection">
                 </div>
                 <div class="modal-field">
-                    <label>
-                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
-                        VLSC Next Collection
-                    </label>
+                    <label><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> VLSC Next Collection</label>
                     <input type="date" id="vlscNextCollection" readonly placeholder="Auto-calculated">
-                    <span class="text-muted" style="font-size:11px;">Auto: +3 months (new) / +1 year (old)</span>
+                    <span class="text-muted" style="font-size:10.5px;">Auto: +3 mo (new) / +1 yr (stable)</span>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn-outline" id="cancelModalBtn">Cancel</button>
-                <button type="submit" class="btn-primary">
+                <button type="submit" class="btn-primary" id="saveClientBtn">
                     <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
                     Save Client
                 </button>
@@ -941,568 +959,842 @@
 
 <!-- ========== PATIENT DETAIL MODAL ========== -->
 <div class="modal-overlay" id="detailModal">
-    <div class="modal-content" style="max-width: 800px;">
+    <div class="modal-content" style="max-width: 760px;">
         <div class="modal-header">
             <h2>
                 <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
                 Patient Full Information
             </h2>
-            <button class="modal-close" id="closeDetailModalBtn">
+            <button class="modal-close" id="closeDetailModalBtn" type="button">
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </button>
         </div>
-        <div id="detailContent">
-            <!-- Populated via JS -->
-        </div>
-        <div class="modal-footer" style="margin-top: 24px;">
+        <div id="detailContent"></div>
+        <div class="modal-footer" style="margin-top: 20px;">
             <button type="button" class="btn-outline" id="closeDetailBtn">Close</button>
         </div>
     </div>
 </div>
 
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
 <script>
-    (function() {
-        // ---------- NOSQL-like Document Store (localStorage) ----------
-        const DB = {
-            users: 'plhiv_users',
-            clients: 'plhiv_clients',
-            session: 'plhiv_session'
-        };
+/**
+ * ============================================================================
+ *  PLHIV Case Manager Diary — NoSQL Storage Layer
+ * ============================================================================
+ *  Storage Strategy:
+ *    1. IndexedDB (primary) — real browser NoSQL database, unlimited, persistent
+ *    2. Cloud Sync (optional) — via JSONBin.io for cross-device access
+ *
+ *  The DB object exposes a simple API:
+ *    DB.users.getAll() / .add() / .findByEmailOrPhone() / .findById()
+ *    DB.clients.getAll() / .getByManager() / .add() / .update()
+ *    DB.session.set() / .get() / .clear()
+ * ============================================================================
+ */
 
-        function getUsers() {
-            try { return JSON.parse(localStorage.getItem(DB.users)) || []; } catch(e) { return []; }
-        }
-        function saveUsers(users) { localStorage.setItem(DB.users, JSON.stringify(users)); }
+// ==================== INDEXEDDB WRAPPER ====================
+const IDB = (() => {
+    const DB_NAME = 'plhiv_diary_db';
+    const DB_VERSION = 2;
+    let dbPromise = null;
 
-        function getClients() {
-            try { return JSON.parse(localStorage.getItem(DB.clients)) || []; } catch(e) { return []; }
-        }
-        function saveClients(clients) { localStorage.setItem(DB.clients, JSON.stringify(clients)); }
+    function open() {
+        if (dbPromise) return dbPromise;
+        dbPromise = new Promise((resolve, reject) => {
+            const req = indexedDB.open(DB_NAME, DB_VERSION);
+            req.onupgradeneeded = (e) => {
+                const db = e.target.result;
+                if (!db.objectStoreNames.contains('users')) {
+                    db.createObjectStore('users', { keyPath: 'id' });
+                }
+                if (!db.objectStoreNames.contains('clients')) {
+                    const store = db.createObjectStore('clients', { keyPath: 'id' });
+                    store.createIndex('managerId', 'managerId', { unique: false });
+                }
+                if (!db.objectStoreNames.contains('meta')) {
+                    db.createObjectStore('meta', { keyPath: 'key' });
+                }
+            };
+            req.onsuccess = () => resolve(req.result);
+            req.onerror = () => reject(req.error);
+        });
+        return dbPromise;
+    }
 
-        function getSession() {
-            try { return JSON.parse(localStorage.getItem(DB.session)); } catch(e) { return null; }
-        }
-        function saveSession(session) { localStorage.setItem(DB.session, JSON.stringify(session)); }
-        function clearSession() { localStorage.removeItem(DB.session); }
+    async function tx(storeName, mode) {
+        const db = await open();
+        return db.transaction(storeName, mode).objectStore(storeName);
+    }
 
-        // ---------- State ----------
-        let currentUser = null;
-        let clients = [];
-
-        // ---------- DOM refs ----------
-        const loginPage = document.getElementById('loginPage');
-        const signupPage = document.getElementById('signupPage');
-        const dashboardPage = document.getElementById('dashboardPage');
-        const loginForm = document.getElementById('loginForm');
-        const signupForm = document.getElementById('signupForm');
-        const showSignup = document.getElementById('showSignup');
-        const showLogin = document.getElementById('showLogin');
-        const loginError = document.getElementById('loginError');
-        const signupError = document.getElementById('signupError');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const managerInfo = document.getElementById('managerInfo');
-        const totalClientsEl = document.getElementById('totalClients');
-        const activeRefillsEl = document.getElementById('activeRefills');
-        const tableBody = document.getElementById('tableBody');
-        const openAddModal = document.getElementById('openAddModal');
-        const addClientModal = document.getElementById('addClientModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const cancelModalBtn = document.getElementById('cancelModalBtn');
-        const clientForm = document.getElementById('clientForm');
-        const vlscLastInput = document.getElementById('vlscLastCollection');
-        const vlscNextInput = document.getElementById('vlscNextCollection');
-        const refillMonthsSelect = document.getElementById('refillMonths');
-        const detailModal = document.getElementById('detailModal');
-        const closeDetailModalBtn = document.getElementById('closeDetailModalBtn');
-        const closeDetailBtn = document.getElementById('closeDetailBtn');
-        const detailContent = document.getElementById('detailContent');
-
-        // ---------- Helpers ----------
-        function formatDate(date) {
-            if (!date) return '—';
-            const d = new Date(date);
-            if (isNaN(d.getTime())) return '—';
-            return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-        }
-
-        function addMonths(date, months) {
-            if (!date) return null;
-            const d = new Date(date);
-            if (isNaN(d.getTime())) return null;
-            const day = d.getDate();
-            d.setMonth(d.getMonth() + months);
-            if (d.getDate() !== day) d.setDate(0);
-            return d;
-        }
-
-        function getStatusInfo(nextPickupDate) {
-            if (!nextPickupDate) return { label: 'No data', class: 'badge-active', note: '' };
-            const today = new Date(); today.setHours(0,0,0,0);
-            const due = new Date(nextPickupDate); due.setHours(0,0,0,0);
-            const diffDays = Math.floor((today - due) / (1000 * 60 * 60 * 24));
-
-            if (diffDays < 0) return { label: 'Active', class: 'badge-active', note: '' };
-            if (diffDays >= 0 && diffDays < 14) return { label: 'Active', class: 'badge-active', note: `Due ${diffDays}d ago` };
-            if (diffDays >= 14 && diffDays < 30) return { label: 'Defaulted', class: 'badge-defaulted', note: `${diffDays}d overdue` };
-            return { label: 'IIT', class: 'badge-iit', note: `URGENT: ${diffDays}d overdue` };
-        }
-
-        function escapeHtml(text) {
-            if (!text && text !== 0) return '';
-            return String(text).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
-        }
-
-        // ---------- VLSC auto-calculation ----------
-        function updateVlscNext() {
-            const lastVlsc = vlscLastInput.value;
-            if (!lastVlsc) { vlscNextInput.value = ''; return; }
-            const refill = refillMonthsSelect.value;
-            const monthsToAdd = (refill === '3') ? 3 : 12;
-            const next = addMonths(new Date(lastVlsc), monthsToAdd);
-            if (next) vlscNextInput.value = next.toISOString().slice(0,10);
-        }
-
-        vlscLastInput.addEventListener('change', updateVlscNext);
-        refillMonthsSelect.addEventListener('change', updateVlscNext);
-
-        // ---------- Render Dashboard ----------
-        function renderDashboard() {
-            if (!currentUser) return;
-
-            // Manager info
-            managerInfo.innerHTML = `
-                <span class="detail">
-                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                    ${escapeHtml(currentUser.fullName)}
-                </span>
-                <span class="detail">
-                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    ${escapeHtml(currentUser.email)}
-                </span>
-                <span class="detail">
-                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    ${escapeHtml(currentUser.phone)}
-                </span>
-                <span class="detail">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                    ${escapeHtml(currentUser.facility)}
-                </span>
-            `;
-
-            // Filter clients for this manager
-            const managerClients = clients.filter(c => c.managerId === currentUser.id);
-            totalClientsEl.textContent = managerClients.length;
-
-            // Count active (not overdue) refills
-            let activeCount = 0;
-            managerClients.forEach(c => {
-                const last = c.lastPickupDate ? new Date(c.lastPickupDate) : null;
-                const next = last ? addMonths(last, c.refillMonths || 6) : null;
-                const status = getStatusInfo(next);
-                if (status.label === 'Active') activeCount++;
+    return {
+        async put(store, value) {
+            const s = await tx(store, 'readwrite');
+            return new Promise((resolve, reject) => {
+                const req = s.put(value);
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => reject(req.error);
             });
-            activeRefillsEl.textContent = activeCount;
+        },
+        async get(store, key) {
+            const s = await tx(store, 'readonly');
+            return new Promise((resolve, reject) => {
+                const req = s.get(key);
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => reject(req.error);
+            });
+        },
+        async getAll(store) {
+            const s = await tx(store, 'readonly');
+            return new Promise((resolve, reject) => {
+                const req = s.getAll();
+                req.onsuccess = () => resolve(req.result || []);
+                req.onerror = () => reject(req.error);
+            });
+        },
+        async getAllByIndex(store, indexName, value) {
+            const s = await tx(store, 'readonly');
+            const idx = s.index(indexName);
+            return new Promise((resolve, reject) => {
+                const req = idx.getAll(value);
+                req.onsuccess = () => resolve(req.result || []);
+                req.onerror = () => reject(req.error);
+            });
+        },
+        async delete(store, key) {
+            const s = await tx(store, 'readwrite');
+            return new Promise((resolve, reject) => {
+                const req = s.delete(key);
+                req.onsuccess = () => resolve();
+                req.onerror = () => reject(req.error);
+            });
+        },
+        async clear(store) {
+            const s = await tx(store, 'readwrite');
+            return new Promise((resolve, reject) => {
+                const req = s.clear();
+                req.onsuccess = () => resolve();
+                req.onerror = () => reject(req.error);
+            });
+        }
+    };
+})();
 
-            // Table
-            if (managerClients.length === 0) {
-                tableBody.innerHTML = `<tr class="empty-row">
-                    <td colspan="11">
-                        <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
-                        No clients yet. Click "Add Client".
-                    </td>
-                </tr>`;
-                return;
+// ==================== CLOUD SYNC (JSONBin.io) ====================
+/**
+ * Optional cross-device sync via JSONBin.io (free tier: 10,000 requests/month)
+ * To enable:
+ *   1. Go to https://jsonbin.io and create a free account
+ *   2. Create a new bin and copy its ID
+ *   3. Paste the bin ID below
+ *   4. Set CLOUD_SYNC = true
+ */
+const CLOUD_SYNC = false; // Set to true after configuring bin ID
+const JSONBIN_BIN_ID = ''; // e.g. '65a1b2c3d4e5f6a7b8c9d0e1'
+const JSONBIN_MASTER_KEY = ''; // Optional: your X-Master-Key for private bins
+
+const CloudSync = {
+    async pull() {
+        if (!CLOUD_SYNC || !JSONBIN_BIN_ID) return null;
+        try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (JSONBIN_MASTER_KEY) headers['X-Master-Key'] = JSONBIN_MASTER_KEY;
+            const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, { headers });
+            if (!res.ok) throw new Error('Pull failed');
+            const data = await res.json();
+            return data.record || null;
+        } catch (e) {
+            console.warn('Cloud pull failed:', e);
+            return null;
+        }
+    },
+    async push(payload) {
+        if (!CLOUD_SYNC || !JSONBIN_BIN_ID) return false;
+        try {
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-Bin-Versioning': 'false'
+            };
+            if (JSONBIN_MASTER_KEY) headers['X-Master-Key'] = JSONBIN_MASTER_KEY;
+            const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+                method: 'PUT',
+                headers,
+                body: JSON.stringify(payload)
+            });
+            return res.ok;
+        } catch (e) {
+            console.warn('Cloud push failed:', e);
+            return false;
+        }
+    }
+};
+
+// ==================== HIGH-LEVEL DB API ====================
+const DB = {
+    users: {
+        async getAll() { return IDB.getAll('users'); },
+        async findById(id) { return IDB.get('users', id); },
+        async findByEmailOrPhone(input) {
+            const all = await IDB.getAll('users');
+            const needle = String(input).toLowerCase().trim();
+            return all.find(u =>
+                (u.email && u.email.toLowerCase() === needle) ||
+                (u.phone && u.phone.trim() === needle)
+            ) || null;
+        },
+        async add(user) { return IDB.put('users', user); },
+        async update(user) { return IDB.put('users', user); }
+    },
+    clients: {
+        async getAll() { return IDB.getAll('clients'); },
+        async getByManager(managerId) {
+            const all = await IDB.getAll('clients');
+            return all.filter(c => String(c.managerId) === String(managerId));
+        },
+        async add(client) { return IDB.put('clients', client); },
+        async update(client) { return IDB.put('clients', client); },
+        async delete(id) { return IDB.delete('clients', id); }
+    },
+    session: {
+        async set(userId, ttlDays = 30) {
+            const session = {
+                key: 'current',
+                userId,
+                expiresAt: Date.now() + ttlDays * 24 * 60 * 60 * 1000
+            };
+            await IDB.put('meta', session);
+            try { localStorage.setItem('plhiv_session', JSON.stringify(session)); } catch(e) {}
+        },
+        async get() {
+            // Try IndexedDB first
+            try {
+                const s = await IDB.get('meta', 'current');
+                if (s && s.expiresAt > Date.now()) return s;
+            } catch(e) {}
+            // Fallback to localStorage
+            try {
+                const raw = localStorage.getItem('plhiv_session');
+                if (raw) {
+                    const s = JSON.parse(raw);
+                    if (s && s.expiresAt > Date.now()) return s;
+                }
+            } catch(e) {}
+            return null;
+        },
+        async clear() {
+            try { await IDB.delete('meta', 'current'); } catch(e) {}
+            try { localStorage.removeItem('plhiv_session'); } catch(e) {}
+        }
+    },
+    // Export all data for backup / sync
+    async exportAll() {
+        const [users, clients] = await Promise.all([
+            IDB.getAll('users'),
+            IDB.getAll('clients')
+        ]);
+        // Strip sensitive fields for backup? No — keep everything for restore.
+        return { users, clients, exportedAt: new Date().toISOString() };
+    },
+    // Import / restore data
+    async importAll(data) {
+        if (!data) return;
+        if (Array.isArray(data.users)) {
+            for (const u of data.users) {
+                try { await IDB.put('users', u); } catch(e) { console.warn('Import user failed', e); }
             }
+        }
+        if (Array.isArray(data.clients)) {
+            for (const c of data.clients) {
+                try { await IDB.put('clients', c); } catch(e) { console.warn('Import client failed', e); }
+            }
+        }
+    }
+};
 
-            let html = '';
-            managerClients.forEach(client => {
-                const lastPickup = client.lastPickupDate ? new Date(client.lastPickupDate) : null;
-                const refillMonths = client.refillMonths || 6;
-                const nextPickup = lastPickup ? addMonths(lastPickup, refillMonths) : null;
-                const status = getStatusInfo(nextPickup);
+// ==================== PASSWORD HASHING ====================
+// Simple SHA-256 via Web Crypto API (browser-native, no libraries)
+async function hashPassword(password, salt) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password + '::' + salt);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
 
-                const vlscNext = client.vlscNextCollection || null;
+function generateSalt() {
+    const arr = new Uint8Array(16);
+    crypto.getRandomValues(arr);
+    return Array.from(arr).map(b => b.toString(16).padStart(2, '0')).join('');
+}
 
-                // Determine badge class for urgent
-                let badgeClass = status.class;
-                if (status.label === 'IIT') badgeClass = 'badge badge-iit';
+function generateId() {
+    if (crypto.randomUUID) return crypto.randomUUID();
+    return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
 
-                html += `<tr>
-                    <td><strong>${escapeHtml(client.hospitalNo)}</strong></td>
-                    <td>${escapeHtml(client.fullName) || '<span class="text-muted">—</span>'}</td>
-                    <td>${client.age || '—'}</td>
-                    <td>${client.weight ? client.weight + ' kg' : '—'}</td>
-                    <td>${client.height ? client.height + ' cm' : '—'}</td>
-                    <td>${escapeHtml(client.location) || '—'}</td>
-                    <td>${escapeHtml(client.phone) || '—'}</td>
-                    <td>${nextPickup ? formatDate(nextPickup) : '—'}</td>
-                    <td>${formatDate(vlscNext)}</td>
-                    <td>
-                        <div class="status-cell">
-                            <span class="badge ${badgeClass}">${status.label}</span>
-                            ${status.note ? `<span class="status-note">${status.note}</span>` : ''}
-                            ${status.label === 'IIT' ? `<span class="status-note" style="color:#b91c1c; font-weight:700;">⚠ URGENT REFILL</span>` : ''}
-                        </div>
-                    </td>
-                    <td>
-                        <button class="view-btn" data-client-id="${client.id}" onclick="window.viewClient('${client.id}')">
-                            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-                            View
-                        </button>
-                    </td>
-                </tr>`;
-            });
-            tableBody.innerHTML = html;
+// ==================== UI APPLICATION ====================
+(function() {
+    // ---------- DOM refs ----------
+    const $ = id => document.getElementById(id);
+
+    const loginPage = $('loginPage');
+    const signupPage = $('signupPage');
+    const dashboardPage = $('dashboardPage');
+    const loginForm = $('loginForm');
+    const signupForm = $('signupForm');
+    const loginError = $('loginError');
+    const signupError = $('signupError');
+    const managerInfo = $('managerInfo');
+    const totalClientsEl = $('totalClients');
+    const activeRefillsEl = $('activeRefills');
+    const tableBody = $('tableBody');
+    const clientsCards = $('clientsCards');
+    const addClientModal = $('addClientModal');
+    const detailModal = $('detailModal');
+    const detailContent = $('detailContent');
+    const clientForm = $('clientForm');
+    const vlscLastInput = $('vlscLastCollection');
+    const vlscNextInput = $('vlscNextCollection');
+    const refillMonthsSelect = $('refillMonths');
+    const syncDot = $('syncDot');
+    const syncText = $('syncText');
+    const toast = $('toast');
+
+    // ---------- State ----------
+    let currentUser = null;
+    let clients = [];
+    let syncTimer = null;
+
+    // ---------- Helpers ----------
+    function formatDate(date) {
+        if (!date) return '—';
+        const d = new Date(date);
+        if (isNaN(d.getTime())) return '—';
+        return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    function addMonths(date, months) {
+        if (!date) return null;
+        const d = new Date(date);
+        if (isNaN(d.getTime())) return null;
+        const day = d.getDate();
+        d.setMonth(d.getMonth() + months);
+        if (d.getDate() !== day) d.setDate(0);
+        return d;
+    }
+
+    function getStatusInfo(nextPickupDate) {
+        if (!nextPickupDate) return { label: 'No data', class: 'badge-active', note: '' };
+        const today = new Date(); today.setHours(0,0,0,0);
+        const due = new Date(nextPickupDate); due.setHours(0,0,0,0);
+        const diffDays = Math.floor((today - due) / (1000 * 60 * 60 * 24));
+
+        if (diffDays < 0) return { label: 'Active', class: 'badge-active', note: '' };
+        if (diffDays >= 0 && diffDays < 14) return { label: 'Active', class: 'badge-active', note: `Due ${diffDays}d ago` };
+        if (diffDays >= 14 && diffDays < 30) return { label: 'Defaulted', class: 'badge-defaulted', note: `${diffDays}d overdue` };
+        return { label: 'IIT', class: 'badge-iit', note: `URGENT: ${diffDays}d overdue` };
+    }
+
+    function escapeHtml(text) {
+        if (text === null || text === undefined) return '';
+        return String(text).replace(/[&<>"']/g, m => ({
+            '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+        }[m]));
+    }
+
+    function showToast(msg, type = '') {
+        toast.textContent = msg;
+        toast.className = 'toast show ' + type;
+        clearTimeout(toast._t);
+        toast._t = setTimeout(() => {
+            toast.className = 'toast ' + type;
+        }, 2800);
+    }
+
+    function setSyncStatus(status, text) {
+        syncDot.className = 'sync-dot ' + (status || '');
+        syncText.textContent = text || 'Local';
+    }
+
+    // ---------- Cloud sync (debounced) ----------
+    function scheduleSync() {
+        if (!CLOUD_SYNC) return;
+        clearTimeout(syncTimer);
+        syncTimer = setTimeout(async () => {
+            try {
+                setSyncStatus('', 'Syncing...');
+                const payload = await DB.exportAll();
+                const ok = await CloudSync.push(payload);
+                setSyncStatus(ok ? 'online' : 'error', ok ? 'Synced' : 'Sync failed');
+            } catch (e) {
+                setSyncStatus('error', 'Sync error');
+            }
+        }, 1500);
+    }
+
+    // ---------- VLSC auto-calculation ----------
+    function updateVlscNext() {
+        const lastVlsc = vlscLastInput.value;
+        if (!lastVlsc) { vlscNextInput.value = ''; return; }
+        const refill = refillMonthsSelect.value;
+        const monthsToAdd = (refill === '3') ? 3 : 12;
+        const next = addMonths(new Date(lastVlsc), monthsToAdd);
+        if (next) vlscNextInput.value = next.toISOString().slice(0,10);
+    }
+
+    vlscLastInput.addEventListener('change', updateVlscNext);
+    refillMonthsSelect.addEventListener('change', updateVlscNext);
+
+    // ---------- Render Dashboard ----------
+    function renderDashboard() {
+        if (!currentUser) return;
+
+        managerInfo.innerHTML = `
+            <span class="detail"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> ${escapeHtml(currentUser.fullName)}</span>
+            <span class="detail"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> ${escapeHtml(currentUser.email)}</span>
+            <span class="detail"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> ${escapeHtml(currentUser.phone)}</span>
+            <span class="detail"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> ${escapeHtml(currentUser.facility)}</span>
+        `;
+
+        const managerClients = clients.filter(c => String(c.managerId) === String(currentUser.id));
+        totalClientsEl.textContent = managerClients.length;
+
+        let activeCount = 0;
+        managerClients.forEach(c => {
+            const last = c.lastPickupDate ? new Date(c.lastPickupDate) : null;
+            const next = last ? addMonths(last, c.refillMonths || 6) : null;
+            const status = getStatusInfo(next);
+            if (status.label === 'Active') activeCount++;
+        });
+        activeRefillsEl.textContent = activeCount;
+
+        if (managerClients.length === 0) {
+            const emptyHtml = `<tr class="empty-row"><td colspan="11"><svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg> No clients yet. Click "Add Client".</td></tr>`;
+            tableBody.innerHTML = emptyHtml;
+            clientsCards.innerHTML = `<div style="text-align:center; padding:30px 16px; color:#8a9bb8; font-style:italic; font-size:14px;">No clients yet. Tap "Add Client".</div>`;
+            return;
         }
 
-        // ---------- View Client Detail (global for onclick) ----------
-        window.viewClient = function(clientId) {
-            const client = clients.find(c => String(c.id) === String(clientId));
-            if (!client) return;
-
+        // Build table rows
+        let tableHtml = '';
+        managerClients.forEach(client => {
             const lastPickup = client.lastPickupDate ? new Date(client.lastPickupDate) : null;
             const refillMonths = client.refillMonths || 6;
             const nextPickup = lastPickup ? addMonths(lastPickup, refillMonths) : null;
             const status = getStatusInfo(nextPickup);
 
-            const detailHtml = `
-                <div class="detail-section-title">
-                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                    Personal Information
-                </div>
-                <div class="detail-grid">
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
-                            Full Name
-                        </span>
-                        <span class="value ${!client.fullName ? 'empty' : ''}">${client.fullName ? escapeHtml(client.fullName) : 'Not provided'}</span>
+            tableHtml += `<tr>
+                <td><strong>${escapeHtml(client.hospitalNo)}</strong></td>
+                <td>${escapeHtml(client.fullName) || '<span class="text-muted">—</span>'}</td>
+                <td>${client.age || '—'}</td>
+                <td>${client.weight ? client.weight + ' kg' : '—'}</td>
+                <td>${client.height ? client.height + ' cm' : '—'}</td>
+                <td>${escapeHtml(client.location) || '—'}</td>
+                <td>${escapeHtml(client.phone) || '—'}</td>
+                <td>${nextPickup ? formatDate(nextPickup) : '—'}</td>
+                <td>${formatDate(client.vlscNextCollection)}</td>
+                <td>
+                    <div class="status-cell">
+                        <span class="badge ${status.class}">${status.label}</span>
+                        ${status.note ? `<span class="status-note">${status.note}</span>` : ''}
                     </div>
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                            Hospital No.
-                        </span>
-                        <span class="value">${escapeHtml(client.hospitalNo)}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-                            Age
-                        </span>
-                        <span class="value ${!client.age ? 'empty' : ''}">${client.age ? client.age + ' years' : 'Not provided'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M12 3L4 9v12h16V9l-8-6zm0 2.5l6 4.5v9H6v-9l6-4.5zM9 17h6v-2H9v2zm0-4h6v-2H9v2zm0-4h6V7H9v2z"/></svg>
-                            Weight
-                        </span>
-                        <span class="value ${!client.weight ? 'empty' : ''}">${client.weight ? client.weight + ' kg' : 'Not provided'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.87L12 5.84zM17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 7c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM3 21.5h8v-8H3v8zm2-6h4v4H5v-4z"/></svg>
-                            Height
-                        </span>
-                        <span class="value ${!client.height ? 'empty' : ''}">${client.height ? client.height + ' cm' : 'Not provided'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                            Location
-                        </span>
-                        <span class="value ${!client.location ? 'empty' : ''}">${client.location ? escapeHtml(client.location) : 'Not provided'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                            Address
-                        </span>
-                        <span class="value ${!client.address ? 'empty' : ''}">${client.address ? escapeHtml(client.address) : 'Not provided'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                            Phone
-                        </span>
-                        <span class="value ${!client.phone ? 'empty' : ''}">${client.phone ? escapeHtml(client.phone) : 'Not provided'}</span>
-                    </div>
-                </div>
+                </td>
+                <td>
+                    <button class="view-btn" data-client-id="${client.id}" onclick="window.viewClient('${client.id}')">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                        View
+                    </button>
+                </td>
+            </tr>`;
+        });
+        tableBody.innerHTML = tableHtml;
 
-                <div class="detail-section-title" style="margin-top: 20px;">
-                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
-                    Refill &amp; VLSC Information
-                </div>
-                <div class="detail-grid">
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
-                            Last Pickup
-                        </span>
-                        <span class="value ${!client.lastPickupDate ? 'empty' : ''}">${client.lastPickupDate ? formatDate(client.lastPickupDate) : 'Not provided'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-                            Refill Period
-                        </span>
-                        <span class="value">${refillMonths} months</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
-                            Next Pickup
-                        </span>
-                        <span class="value">${nextPickup ? formatDate(nextPickup) : '—'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
-                            VLSC Last Collection
-                        </span>
-                        <span class="value ${!client.vlscLastCollection ? 'empty' : ''}">${client.vlscLastCollection ? formatDate(client.vlscLastCollection) : 'Not provided'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
-                            VLSC Next Collection
-                        </span>
-                        <span class="value ${!client.vlscNextCollection ? 'empty' : ''}">${client.vlscNextCollection ? formatDate(client.vlscNextCollection) : 'Not provided'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="label">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-                            Status
-                        </span>
-                        <span class="value">
-                            <span class="badge ${status.class}" style="font-size:13px;">${status.label}</span>
-                            ${status.note ? `<span style="margin-left:8px; font-size:13px; color:#b45309;">${status.note}</span>` : ''}
-                        </span>
-                    </div>
-                </div>
-            `;
+        // Build mobile cards
+        let cardsHtml = '';
+        managerClients.forEach(client => {
+            const lastPickup = client.lastPickupDate ? new Date(client.lastPickupDate) : null;
+            const refillMonths = client.refillMonths || 6;
+            const nextPickup = lastPickup ? addMonths(lastPickup, refillMonths) : null;
+            const status = getStatusInfo(nextPickup);
 
-            detailContent.innerHTML = detailHtml;
-            detailModal.classList.add('active');
+            cardsHtml += `<div class="client-card">
+                <div class="card-head">
+                    <div>
+                        <div class="name">${escapeHtml(client.fullName) || '<span style="color:#a0b0c8;">Unnamed Client</span>'}</div>
+                        <div class="hosp">Hosp: ${escapeHtml(client.hospitalNo)}</div>
+                    </div>
+                    <span class="badge ${status.class}">${status.label}</span>
+                </div>
+                <div class="card-grid">
+                    <div class="cg-item"><span class="lbl">Age</span><span class="val">${client.age || '—'}</span></div>
+                    <div class="cg-item"><span class="lbl">Weight</span><span class="val">${client.weight ? client.weight+' kg' : '—'}</span></div>
+                    <div class="cg-item"><span class="lbl">Next Pickup</span><span class="val">${nextPickup ? formatDate(nextPickup) : '—'}</span></div>
+                    <div class="cg-item"><span class="lbl">VLSC Next</span><span class="val">${formatDate(client.vlscNextCollection)}</span></div>
+                    <div class="cg-item"><span class="lbl">Location</span><span class="val">${escapeHtml(client.location) || '—'}</span></div>
+                    <div class="cg-item"><span class="lbl">Phone</span><span class="val">${escapeHtml(client.phone) || '—'}</span></div>
+                </div>
+                <div class="card-foot">
+                    <span class="status-note" style="font-size:11px;">${status.note || ''}</span>
+                    <button class="view-btn" onclick="window.viewClient('${client.id}')">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                        View Details
+                    </button>
+                </div>
+            </div>`;
+        });
+        clientsCards.innerHTML = cardsHtml;
+    }
+
+    // ---------- View Client Detail ----------
+    window.viewClient = function(clientId) {
+        const client = clients.find(c => String(c.id) === String(clientId));
+        if (!client) return showToast('Client not found', 'error');
+
+        const lastPickup = client.lastPickupDate ? new Date(client.lastPickupDate) : null;
+        const refillMonths = client.refillMonths || 6;
+        const nextPickup = lastPickup ? addMonths(lastPickup, refillMonths) : null;
+        const status = getStatusInfo(nextPickup);
+
+        detailContent.innerHTML = `
+            <div class="detail-section-title">
+                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                Personal Information
+            </div>
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> Full Name</span>
+                    <span class="value ${!client.fullName ? 'empty' : ''}">${client.fullName ? escapeHtml(client.fullName) : 'Not provided'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Hospital No.</span>
+                    <span class="value">${escapeHtml(client.hospitalNo)}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> Age</span>
+                    <span class="value ${!client.age ? 'empty' : ''}">${client.age ? client.age + ' years' : 'Not provided'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M12 3L4 9v12h16V9l-8-6zm0 2.5l6 4.5v9H6v-9l6-4.5zM9 17h6v-2H9v2zm0-4h6v-2H9v2zm0-4h6V7H9v2z"/></svg> Weight</span>
+                    <span class="value ${!client.weight ? 'empty' : ''}">${client.weight ? client.weight + ' kg' : 'Not provided'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.87L12 5.84zM17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 7c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM3 21.5h8v-8H3v8zm2-6h4v4H5v-4z"/></svg> Height</span>
+                    <span class="value ${!client.height ? 'empty' : ''}">${client.height ? client.height + ' cm' : 'Not provided'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Location</span>
+                    <span class="value ${!client.location ? 'empty' : ''}">${client.location ? escapeHtml(client.location) : 'Not provided'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Address</span>
+                    <span class="value ${!client.address ? 'empty' : ''}">${client.address ? escapeHtml(client.address) : 'Not provided'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> Phone</span>
+                    <span class="value ${!client.phone ? 'empty' : ''}">${client.phone ? escapeHtml(client.phone) : 'Not provided'}</span>
+                </div>
+            </div>
+
+            <div class="detail-section-title" style="margin-top: 18px;">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+                Refill &amp; VLSC Information
+            </div>
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg> Last Pickup</span>
+                    <span class="value ${!client.lastPickupDate ? 'empty' : ''}">${client.lastPickupDate ? formatDate(client.lastPickupDate) : 'Not provided'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> Refill Period</span>
+                    <span class="value">${refillMonths} months</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> Next Pickup</span>
+                    <span class="value">${nextPickup ? formatDate(nextPickup) : '—'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> VLSC Last</span>
+                    <span class="value ${!client.vlscLastCollection ? 'empty' : ''}">${client.vlscLastCollection ? formatDate(client.vlscLastCollection) : 'Not provided'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg> VLSC Next</span>
+                    <span class="value ${!client.vlscNextCollection ? 'empty' : ''}">${client.vlscNextCollection ? formatDate(client.vlscNextCollection) : 'Not provided'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> Status</span>
+                    <span class="value">
+                        <span class="badge ${status.class}" style="font-size:12px;">${status.label}</span>
+                        ${status.note ? `<span style="margin-left:8px; font-size:12px; color:#b45309;">${status.note}</span>` : ''}
+                    </span>
+                </div>
+            </div>
+        `;
+        detailModal.classList.add('active');
+    };
+
+    // ---------- Modals ----------
+    function openModal() {
+        clientForm.reset();
+        $('lastPickupDate').valueAsDate = new Date();
+        vlscNextInput.value = '';
+        vlscLastInput.value = '';
+        addClientModal.classList.add('active');
+    }
+    function closeModal() { addClientModal.classList.remove('active'); }
+    function closeDetailModal() { detailModal.classList.remove('active'); }
+
+    $('openAddModal').addEventListener('click', openModal);
+    $('closeModalBtn').addEventListener('click', closeModal);
+    $('cancelModalBtn').addEventListener('click', closeModal);
+    addClientModal.addEventListener('click', e => { if (e.target === addClientModal) closeModal(); });
+    $('closeDetailModalBtn').addEventListener('click', closeDetailModal);
+    $('closeDetailBtn').addEventListener('click', closeDetailModal);
+    detailModal.addEventListener('click', e => { if (e.target === detailModal) closeDetailModal(); });
+
+    // ---------- Add Client ----------
+    clientForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        if (!currentUser) return;
+
+        const hospitalNo = $('hospitalNo').value.trim();
+        if (!hospitalNo) { showToast('Hospital Number is required', 'error'); return; }
+
+        const lastPickupDate = $('lastPickupDate').value;
+        if (!lastPickupDate) { showToast('Please select a Last Pickup Date', 'error'); return; }
+
+        const refillMonths = Number($('refillMonths').value);
+        const vlscLast = vlscLastInput.value || null;
+        let vlscNext = vlscNextInput.value || null;
+        if (vlscLast && !vlscNext) {
+            const monthsToAdd = (refillMonths === 3) ? 3 : 12;
+            const next = addMonths(new Date(vlscLast), monthsToAdd);
+            if (next) vlscNext = next.toISOString().slice(0,10);
+        }
+
+        const newClient = {
+            id: generateId(),
+            managerId: currentUser.id,
+            fullName: $('fullName').value.trim(),
+            hospitalNo,
+            age: $('age').value ? Number($('age').value) : null,
+            weight: $('weight').value ? Number($('weight').value) : null,
+            height: $('height').value ? Number($('height').value) : null,
+            location: $('location').value.trim(),
+            address: $('address').value.trim(),
+            phone: $('phone').value.trim(),
+            lastPickupDate,
+            refillMonths,
+            vlscLastCollection: vlscLast,
+            vlscNextCollection: vlscNext,
+            createdAt: new Date().toISOString()
         };
 
-        // ---------- Modal Handlers ----------
-        function openModal() {
-            clientForm.reset();
-            document.getElementById('lastPickupDate').valueAsDate = new Date();
-            vlscNextInput.value = '';
-            vlscLastInput.value = '';
-            addClientModal.classList.add('active');
-        }
-
-        function closeModal() {
-            addClientModal.classList.remove('active');
-        }
-
-        function closeDetailModal() {
-            detailModal.classList.remove('active');
-        }
-
-        openAddModal.addEventListener('click', openModal);
-        closeModalBtn.addEventListener('click', closeModal);
-        cancelModalBtn.addEventListener('click', closeModal);
-        addClientModal.addEventListener('click', (e) => { if (e.target === addClientModal) closeModal(); });
-
-        closeDetailModalBtn.addEventListener('click', closeDetailModal);
-        closeDetailBtn.addEventListener('click', closeDetailModal);
-        detailModal.addEventListener('click', (e) => { if (e.target === detailModal) closeDetailModal(); });
-
-        // ---------- Add Client ----------
-        clientForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (!currentUser) return;
-
-            const hospitalNo = document.getElementById('hospitalNo').value.trim();
-            if (!hospitalNo) { alert('Hospital Number is required.'); return; }
-
-            const lastPickupDate = document.getElementById('lastPickupDate').value;
-            if (!lastPickupDate) { alert('Please select a Last Pickup Date.'); return; }
-
-            const refillMonths = Number(document.getElementById('refillMonths').value);
-            const vlscLast = vlscLastInput.value || null;
-            let vlscNext = vlscNextInput.value || null;
-            if (vlscLast && !vlscNext) {
-                const monthsToAdd = (refillMonths === 3) ? 3 : 12;
-                const next = addMonths(new Date(vlscLast), monthsToAdd);
-                if (next) vlscNext = next.toISOString().slice(0,10);
-            }
-
-            const newClient = {
-                id: Date.now() + Math.random(),
-                managerId: currentUser.id,
-                fullName: document.getElementById('fullName').value.trim(),
-                hospitalNo: hospitalNo,
-                age: document.getElementById('age').value ? Number(document.getElementById('age').value) : null,
-                weight: document.getElementById('weight').value ? Number(document.getElementById('weight').value) : null,
-                height: document.getElementById('height').value ? Number(document.getElementById('height').value) : null,
-                location: document.getElementById('location').value.trim(),
-                address: document.getElementById('address').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                lastPickupDate: lastPickupDate,
-                refillMonths: refillMonths,
-                vlscLastCollection: vlscLast,
-                vlscNextCollection: vlscNext
-            };
-
+        try {
+            await DB.clients.add(newClient);
             clients.push(newClient);
-            saveClients(clients);
             renderDashboard();
             closeModal();
-        });
+            showToast('Client added successfully', 'success');
+            scheduleSync();
+        } catch (err) {
+            console.error(err);
+            showToast('Failed to save client', 'error');
+        }
+    });
 
-        // ---------- Auth: Signup ----------
-        signupForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            signupError.textContent = '';
-            const fullName = document.getElementById('signupFullName').value.trim();
-            const email = document.getElementById('signupEmail').value.trim().toLowerCase();
-            const phone = document.getElementById('signupPhone').value.trim();
-            const facility = document.getElementById('signupFacility').value.trim();
-            const password = document.getElementById('signupPassword').value;
+    // ---------- Signup ----------
+    signupForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        signupError.textContent = '';
+        const fullName = $('signupFullName').value.trim();
+        const email = $('signupEmail').value.trim().toLowerCase();
+        const phone = $('signupPhone').value.trim();
+        const facility = $('signupFacility').value.trim();
+        const password = $('signupPassword').value;
 
-            if (!fullName || !email || !phone || !facility || !password) {
-                signupError.textContent = 'All fields are required.';
-                return;
-            }
-
-            const users = getUsers();
-            if (users.some(u => u.email === email || u.phone === phone)) {
-                signupError.textContent = 'Email or phone already registered.';
-                return;
-            }
-
-            const newUser = {
-                id: Date.now(),
-                fullName, email, phone, facility, password
-            };
-            users.push(newUser);
-            saveUsers(users);
-
-            const session = { userId: newUser.id };
-            saveSession(session);
-            currentUser = newUser;
-            clients = getClients();
-
-            signupPage.classList.add('hidden');
-            loginPage.classList.add('hidden');
-            dashboardPage.classList.add('active');
-            renderDashboard();
-        });
-
-        // ---------- Auth: Login ----------
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            loginError.textContent = '';
-            const input = document.getElementById('loginEmailOrPhone').value.trim().toLowerCase();
-            const password = document.getElementById('loginPassword').value;
-
-            if (!input || !password) {
-                loginError.textContent = 'Please enter email/phone and password.';
-                return;
-            }
-
-            const users = getUsers();
-            const user = users.find(u => (u.email === input || u.phone === input) && u.password === password);
-            if (!user) {
-                loginError.textContent = 'Invalid credentials. Please try again.';
-                return;
-            }
-
-            saveSession({ userId: user.id });
-            currentUser = user;
-            clients = getClients();
-
-            loginPage.classList.add('hidden');
-            signupPage.classList.add('hidden');
-            dashboardPage.classList.add('active');
-            renderDashboard();
-        });
-
-        // ---------- Navigation ----------
-        showSignup.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginPage.classList.add('hidden');
-            signupPage.classList.remove('hidden');
-            loginError.textContent = '';
-        });
-
-        showLogin.addEventListener('click', (e) => {
-            e.preventDefault();
-            signupPage.classList.add('hidden');
-            loginPage.classList.remove('hidden');
-            signupError.textContent = '';
-        });
-
-        // ---------- Logout ----------
-        logoutBtn.addEventListener('click', () => {
-            clearSession();
-            currentUser = null;
-            dashboardPage.classList.remove('active');
-            loginPage.classList.remove('hidden');
-            signupPage.classList.add('hidden');
-            loginForm.reset();
-            signupForm.reset();
-            managerInfo.innerHTML = '';
-        });
-
-        // ---------- Auto-login from session ----------
-        function checkAutoLogin() {
-            const session = getSession();
-            if (session && session.userId) {
-                const users = getUsers();
-                const user = users.find(u => u.id === session.userId);
-                if (user) {
-                    currentUser = user;
-                    clients = getClients();
-                    loginPage.classList.add('hidden');
-                    signupPage.classList.add('hidden');
-                    dashboardPage.classList.add('active');
-                    renderDashboard();
-                    return;
-                }
-            }
-            loginPage.classList.remove('hidden');
-            signupPage.classList.add('hidden');
-            dashboardPage.classList.remove('active');
+        if (!fullName || !email || !phone || !facility || !password) {
+            signupError.textContent = 'All fields are required.';
+            return;
+        }
+        if (password.length < 6) {
+            signupError.textContent = 'Password must be at least 6 characters.';
+            return;
         }
 
-        // Initialize
-        checkAutoLogin();
+        const btn = $('signupBtn');
+        btn.disabled = true;
+        try {
+            const existing = await DB.users.findByEmailOrPhone(email) || await DB.users.findByEmailOrPhone(phone);
+            if (existing) {
+                signupError.textContent = 'Email or phone already registered.';
+                btn.disabled = false;
+                return;
+            }
 
-        // Refresh table every 30s for real-time status updates
-        setInterval(() => {
-            if (dashboardPage.classList.contains('active') && currentUser) {
+            const salt = generateSalt();
+            const passwordHash = await hashPassword(password, salt);
+
+            const newUser = {
+                id: generateId(),
+                fullName, email, phone, facility,
+                passwordHash, salt,
+                createdAt: new Date().toISOString()
+            };
+            await DB.users.add(newUser);
+            await DB.session.set(newUser.id);
+            currentUser = newUser;
+            clients = await DB.clients.getByManager(currentUser.id);
+
+            signupPage.classList.add('hidden');
+            loginPage.classList.add('hidden');
+            dashboardPage.classList.add('active');
+            renderDashboard();
+            showToast('Account created successfully', 'success');
+            scheduleSync();
+        } catch (err) {
+            console.error(err);
+            signupError.textContent = 'Signup failed. Please try again.';
+        } finally {
+            btn.disabled = false;
+        }
+    });
+
+    // ---------- Login ----------
+    loginForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        loginError.textContent = '';
+        const input = $('loginEmailOrPhone').value.trim();
+        const password = $('loginPassword').value;
+
+        if (!input || !password) {
+            loginError.textContent = 'Please enter email/phone and password.';
+            return;
+        }
+
+        const btn = $('loginBtn');
+        btn.disabled = true;
+        try {
+            const user = await DB.users.findByEmailOrPhone(input);
+            if (!user) {
+                loginError.textContent = 'Invalid credentials. Please try again.';
+                btn.disabled = false;
+                return;
+            }
+            const hash = await hashPassword(password, user.salt);
+            if (hash !== user.passwordHash) {
+                loginError.textContent = 'Invalid credentials. Please try again.';
+                btn.disabled = false;
+                return;
+            }
+
+            await DB.session.set(user.id);
+            currentUser = user;
+            clients = await DB.clients.getByManager(user.id);
+
+            loginPage.classList.add('hidden');
+            signupPage.classList.add('hidden');
+            dashboardPage.classList.add('active');
+            renderDashboard();
+            showToast('Welcome back, ' + user.fullName.split(' ')[0], 'success');
+        } catch (err) {
+            console.error(err);
+            loginError.textContent = 'Login failed. Please try again.';
+        } finally {
+            btn.disabled = false;
+        }
+    });
+
+    // ---------- Navigation ----------
+    $('showSignup').addEventListener('click', e => {
+        e.preventDefault();
+        loginPage.classList.add('hidden');
+        signupPage.classList.remove('hidden');
+        loginError.textContent = '';
+    });
+    $('showLogin').addEventListener('click', e => {
+        e.preventDefault();
+        signupPage.classList.add('hidden');
+        loginPage.classList.remove('hidden');
+        signupError.textContent = '';
+    });
+
+    // ---------- Logout ----------
+    $('logoutBtn').addEventListener('click', async () => {
+        await DB.session.clear();
+        currentUser = null;
+        clients = [];
+        dashboardPage.classList.remove('active');
+        loginPage.classList.remove('hidden');
+        signupPage.classList.add('hidden');
+        loginForm.reset();
+        signupForm.reset();
+        managerInfo.innerHTML = '';
+    });
+
+    // ---------- Cloud pull on login ----------
+    async function tryCloudSync() {
+        if (!CLOUD_SYNC) {
+            setSyncStatus('offline', 'Local only');
+            return;
+        }
+        setSyncStatus('', 'Syncing...');
+        try {
+            const cloud = await CloudSync.pull();
+            if (cloud && cloud.users && cloud.users.length) {
+                // Merge cloud data into local IndexedDB
+                await DB.importAll(cloud);
+                setSyncStatus('online', 'Synced');
+            } else {
+                setSyncStatus('online', 'Online');
+            }
+        } catch (e) {
+            setSyncStatus('error', 'Offline');
+        }
+    }
+
+    // ---------- Boot ----------
+    async function boot() {
+        // Check session
+        const session = await DB.session.get();
+        if (session && session.userId) {
+            const user = await DB.users.findById(session.userId);
+            if (user) {
+                currentUser = user;
+                clients = await DB.clients.getByManager(user.id);
+                loginPage.classList.add('hidden');
+                signupPage.classList.add('hidden');
+                dashboardPage.classList.add('active');
                 renderDashboard();
+                tryCloudSync();
+                return;
             }
-        }, 30000);
+        }
 
-        // Seed demo user if no users exist
-        (function seedDemo() {
-            const users = getUsers();
-            if (users.length === 0) {
-                const demo = {
-                    id: 1,
-                    fullName: 'Demo Case Manager',
-                    email: 'demo@clinic.com',
-                    phone: '+254700000000',
-                    facility: 'Nairobi Central Clinic',
-                    password: 'demo123'
-                };
-                saveUsers([demo]);
-                const sampleClients = [
-                    { id: 101, managerId: 1, fullName: 'Alice Mwangi', hospitalNo: 'H1001', age: 34, weight: 62, height: 165, location: 'Urban Clinic', address: '12 Riverside', phone: '+254700111222', lastPickupDate: new Date(new Date().setMonth(new Date().getMonth()-6)).toISOString().slice(0,10), refillMonths: 6, vlscLastCollection: new Date(new Date().setFullYear(new Date().getFullYear()-1)).toISOString().slice(0,10), vlscNextCollection: new Date().toISOString().slice(0,10) },
-                    { id: 102, managerId: 1, fullName: 'Brian Odhiambo', hospitalNo: 'H1002', age: 28, weight: 70, height: 178, location: 'Rural Health', address: '45 Kibera', phone: '+254711333444', lastPickupDate: new Date(new Date().setMonth(new Date().getMonth()-9)).toISOString().slice(0,10), refillMonths: 6, vlscLastCollection: new Date(new Date().setMonth(new Date().getMonth()-14)).toISOString().slice(0,10), vlscNextCollection: new Date(new Date().setMonth(new Date().getMonth()-2)).toISOString().slice(0,10) },
-                ];
-                saveClients(sampleClients);
-            }
-        })();
+        // No session — try cloud pull for returning users on a new device
+        await tryCloudSync();
+        loginPage.classList.remove('hidden');
+        signupPage.classList.add('hidden');
+        dashboardPage.classList.remove('active');
+    }
 
-    })();
+    // Refresh table every 30s for real-time status
+    setInterval(() => {
+        if (dashboardPage.classList.contains('active') && currentUser) {
+            renderDashboard();
+        }
+    }, 30000);
+
+    // Refresh status on visibility change (returning to tab)
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && dashboardPage.classList.contains('active') && currentUser) {
+            renderDashboard();
+        }
+    });
+
+    boot();
+})();
 </script>
 
 </body>
